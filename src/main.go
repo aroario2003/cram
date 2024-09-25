@@ -1,7 +1,14 @@
 package main
 
-import "fmt"
+import(
+	"fmt"
+	"runtime"
+)
+
+func getOs() string {
+	return runtime.GOOS
+}
 
 func main() {
-	fmt.Println("Hello world!")
+	fmt.Println(getOs())
 }
