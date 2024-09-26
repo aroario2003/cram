@@ -6,6 +6,9 @@ import "flag"
 var (
 	dbQuery string
 	gui bool
+
+	// this is not a cli argument
+	resultChan chan []string
 )
 
 // cli args are intialized here
@@ -22,4 +25,8 @@ func GetDbQuery() string {
 
 func GetGui() bool {
 	return gui
+}
+
+func GetResultChan() chan []string {
+	return resultChan
 }

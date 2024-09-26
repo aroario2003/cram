@@ -2,11 +2,13 @@ package main
 
 import (
 	"database/sql"
+	"errors"
+	"flag"
+	"fmt"
 	"io"
 	"log"
 	"net"
-	"fmt"
-	"flag"
+	"os"
 
 	cram "github.com/aroario2003/cram/cmd"
 	_ "github.com/go-sql-driver/mysql"
@@ -34,17 +36,40 @@ func connectToDb() *sql.DB {
 	return db
 }
 
-// creates a unix domain socket to keep the database connection alive even after running the cli
-func createSocketLinux() {
-	// define the path to the socket for database connection
-	socketPath := "/tmp/dbsock.sock"
+func createSocketListenerLinux(socketPath string) net.Listener {
 	// create the socket and listen
 	listener, err := net.Listen("unix", socketPath)
 	if err != nil {
 		log.Fatalf("Could not create socket for database connection: %v", err)
 	}
-	// make sure the listener gets closed
-	defer listener.Close()
+	return listener
+}
+
+func createSocketListenerWindows(socketPath string) net.Listener {
+	// create the socket and listen
+	listener, err := net.Listen("npipe", socketPath)
+	if err != nil {
+		log.Fatalf("Could not create socket for database connection: %v", err)
+	}
+	return listener
+}
+
+// creates a unix domain socket to keep the database connection alive even after running the cli
+func createSocketLinux() {
+	// define the path to the socket for database connection
+	socketPath := "/tmp/dbsock.sock"
+	var listener net.Listener
+	// check if the socket already exists
+	if _, err := os.Stat(socketPath); errors.Is(err, os.ErrNotExist) {
+		// if not create it
+		listener = createSocketListenerLinux(socketPath)
+		defer listener.Close()
+	} else {
+		// otherwise remove it and recreate it
+		os.Remove(socketPath)
+		listener = createSocketListenerLinux(socketPath)
+		defer listener.Close()
+	}
 	
 	db := connectToDb()
 	defer db.Close()
@@ -87,24 +112,35 @@ func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 	defer rows.Close()
 	
 	// create a var for and print the resulting rows
-	var result string
+	var row string
+	var result []string
+	resultChan := cram.GetResultChan()
 	for rows.Next() {
-		if err := rows.Scan(&result); err != nil {
+		if err := rows.Scan(&row); err != nil {
 			log.Printf("Could not read row in result of query: %v", err)
 		}
-		conn.Write([]byte(fmt.Sprintf("%s", result)))
+		result = append(result, row)
 	}
+	// send the result over the channel
+	resultChan <- result
 }
 
 // Creates a named pipe on windows to keep database connection
 // alive even when cli isnt running
 func createSocketWindows() {
 	pipePath := "\\.\\pipe\\dbsockpipe"
-	listener, err := net.Listen("npipe", pipePath)
-	if err != nil {
-		log.Fatalf("Failed to create named pipe: %v", err)
+	var listener net.Listener
+	// check if the socket already exists
+	if _, err := os.Stat(pipePath); errors.Is(err, os.ErrNotExist) {
+		// if not create it
+		listener = createSocketListenerWindows(pipePath)
+		defer listener.Close()
+	} else {
+		// otherwise remove it and recreate it
+		os.Remove(pipePath)
+		listener = createSocketListenerLinux(pipePath)
+		defer listener.Close()
 	}
-	defer listener.Close()
 	log.Printf("Named pipe created, listening...")
 	
 	db := connectToDb()
@@ -145,13 +181,16 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 	defer rows.Close()
 	
 	// create a var for and print the resulting rows
-	var result string
+	var result []string
+	var row string
+	resultChan := cram.GetResultChan()
 	for rows.Next() {
 		if err := rows.Scan(&result); err != nil {
 			log.Printf("Could not read row in result of query: %v", err)
 		}
-		conn.Write([]byte(fmt.Sprintf("%s", result)))
+		result = append(result, row)
 	}
+	resultChan <- result
 }
 
 func main() {
