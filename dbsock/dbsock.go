@@ -196,8 +196,14 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 func main() {
 	InitCliArgs()
 	if cram.GetOs() == "linux" {
+		if dbUsername == "" || dbName == "" {
+			log.Fatalf("Cannot connect to database correctly, did not specify inforamtion, please use: dbsock -u <user> -n <db-name> to ensure correct functionality")
+		}
 		createSocketLinux()
 	} else if cram.GetOs() == "windows" {
+		if dbUsername == "" || dbName == "" {
+			log.Fatalf("Cannot connect to database correctly, did not specify inforamtion, please use: dbsock -u <user> -n <db-name> to ensure correct functionality")
+		}
 		createSocketWindows()
 	}
 }
