@@ -1,4 +1,4 @@
-package main
+package cram
 
 import(
 	"fmt"
@@ -10,7 +10,7 @@ func getOs() string {
 	return runtime.GOOS
 }
 
-func main() {
+func Entry() {
 	InitCliArgs()
 	fmt.Println(getOs())
 }

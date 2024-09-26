@@ -1,4 +1,4 @@
-package main
+package dbsock
 
 import (
 	"database/sql"
@@ -7,6 +7,7 @@ import (
 	"net"
 	"fmt"
 
+	cram "github.com/aroario2003/cram/src"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -23,7 +24,9 @@ func createSocket() {
 	defer listener.Close()
 	
 	// connect to database
-	db, err := sql.Open("mysql", "legend@unix(/var/run/mysqld/mysqld.sock)/test")
+	dbUsername := cram.GetDbUsername()
+	dbName := cram.GetDbName()
+	db, err := sql.Open("mysql", fmt.Sprintf("%s@unix(/var/run/mysqld/mysqld.sock)/%s", dbUsername, dbName))
 	if err != nil {
 		log.Fatalf("Could not establish database connection: %v", err)
 	}
