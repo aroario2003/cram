@@ -6,11 +6,11 @@ import(
 )
 
 // get the current os that go is installed on
-func getOs() string {
+func GetOs() string {
 	return runtime.GOOS
 }
 
 func Entry() {
 	InitCliArgs()
-	fmt.Println(getOs())
+	fmt.Println(GetOs())
 }

@@ -1,7 +1,9 @@
 package cram
 
-// return a channel to the connection
-func connectToDb() {
+import "net"
+
+// return the connection the database socket
+func connectToDbSocket() net.Conn {
 
 }
 
