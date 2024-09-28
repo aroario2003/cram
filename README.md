@@ -28,7 +28,7 @@ This tells the compiler that it should build this file specifically when the run
 
 ### Code Duplication Side Effect
 
-Because of the multi-platform nature of this application, their is quite a bit of code duplication in multiple functions throughout. However, this is absolutely because functions will return different types depending on the operating system and therefore must be duplicated for the platforms supported.
+Because of the multi-platform nature of this application, their is quite a bit of code duplication in multiple functions throughout. However, this is absolutely necessary because functions will return different types depending on the operating system and therefore must be duplicated for the platforms supported.
 
 ## What is dbsock?
 
