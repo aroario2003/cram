@@ -15,10 +15,10 @@ import (
 )
 
 // Takes os or software and returns cve number, vulnerability score and time to fix
-func QueryDbOS(conn net.Conn) string {
+func QueryDbOS(conn net.Conn, os string) string {
 	defer conn.Close()
 
-	query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s", GetTableName())
+	query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%'", GetTableName(), os)
 	_, err := conn.Write([]byte(query))
 	if err != nil {
 		log.Printf("Could not send query over connection: %v", err)

@@ -10,6 +10,13 @@ import (
 func Entry() {
 	InitCliArgs()
 	conn := ConnectToDbSocket()
-	result2 := QueryDbCve(conn, "CVE-2016-8024")
-	fmt.Printf("%v", result2)
+
+	if GetSoftware() != "" {
+		result1 := QueryDbOS(conn, GetSoftware())
+		fmt.Printf("%v", result1)
+	}
+	if GetCveNum() != "" { 
+		result2 := QueryDbCve(conn, GetCveNum())
+		fmt.Printf("%v", result2)
+	}
 }
