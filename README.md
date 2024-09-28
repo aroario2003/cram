@@ -40,7 +40,7 @@ In order to build dbsock, from the root of the project enter these commands:
 
 ```shell
 $ cd dbsock
-$ go build -o dbsock ./dbsock.go
+$ go build -o dbsock
 ```
 
 ## Building the main program
@@ -48,7 +48,7 @@ $ go build -o dbsock ./dbsock.go
 From the root of the project do
 
 ```shell
-$ go build -o main main.go
+$ go build -o main
 ```
 
 ## Credits
