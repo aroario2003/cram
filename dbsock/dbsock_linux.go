@@ -12,7 +12,6 @@ import (
 	"os"
 	"fmt"
 	
-	cram "github.com/aroario2003/cram/cmd"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -27,7 +26,7 @@ func createSocketListenerLinux(socketPath string) net.Listener {
 
 
 // creates a unix domain socket to keep the database connection alive even after running the cli
-func CreateSocket(dbName string, dbUsername string) {
+func CreateSocket(dbName string, dbUsername string, dbPassword string) {
 	// define the path to the socket for database connection
 	socketPath := "/tmp/dbsock.sock"
 	var listener net.Listener
@@ -43,7 +42,7 @@ func CreateSocket(dbName string, dbUsername string) {
 		defer listener.Close()
 	}
 	
-	db, err := sql.Open("mysql", fmt.Sprintf("%s@unix(/var/run/mysqld/mysqld.sock)/%s", dbUsername, dbName))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@unix(/var/run/mysqld/mysqld.sock)/%s", dbUsername, dbPassword, dbName))
 	if err != nil {
 		log.Fatalf("Could not establish database connection: %v", err)
 	}
@@ -86,17 +85,48 @@ func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 	// make sure that the table connection is closed
 	defer rows.Close()
 	
-	// create a var for and print the resulting rows
-	var row string
-	var result []string
-	resultChan := cram.GetResultChan()
-	for rows.Next() {
-		if err := rows.Scan(&row); err != nil {
-			log.Printf("Could not read row in result of query: %v", err)
-		}
-		result = append(result, row)
+	// get column names
+	columns, err := rows.Columns()
+	if err != nil {
+		log.Fatalf("Could not get column names of table: %v", err)
 	}
-	// send the result over the channel
-	resultChan <- result
+	
+	
+	// create a var for and print the resulting rows
+	var results [][]interface{}
+	for rows.Next() {
+		values := make([]interface{}, len(columns))
+		valuePtrs := make([]interface{}, len(columns))
+
+		for i := range values {
+			valuePtrs[i] = &values[i]
+		}
+	
+		if err := rows.Scan(valuePtrs...); err != nil {
+			log.Fatal(err)
+		}
+		
+		results = append(results, values)
+	}
+	var result string
+	// Print the results (each row)
+	for _, row := range results {
+		for i, col := range row {
+			if b, ok := col.([]byte); ok {
+				if i+1 % len(columns) == 0 {
+					result = result + fmt.Sprintf("%s", string(b))
+				} else {
+					result = result + fmt.Sprintf("%s ", string(b))
+				}
+				if err != nil {
+					log.Printf("Could not write to database socket: %v", err)
+				}
+			} else {
+				result = result + fmt.Sprintf("%v ", col)
+			} 		
+		}
+		result += "\n"
+	}
+	conn.Write([]byte(result))
 }
 

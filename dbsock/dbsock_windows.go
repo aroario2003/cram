@@ -25,7 +25,7 @@ func createSocketListenerWindows(pipePath string) *npipe.PipeListener {
 
 // Creates a named pipe on windows to keep database connection
 // alive even when cli isnt running
-func CreateSocket(dbName string, dbUsername string) {
+func CreateSocket(dbName string, dbUsername string, dbPassword string) {
 	pipePath := `\\.\pipe\dbsockpipe`
 
 	listener := createSocketListenerWindows(pipePath)
@@ -33,7 +33,7 @@ func CreateSocket(dbName string, dbUsername string) {
 
 	log.Printf("Named pipe created, listening...")
 	
-	db, err := sql.Open("mysql", fmt.Sprintf("%s@unix(/var/run/mysqld/mysqld.sock)/%s", dbUsername, dbName))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@unix(/var/run/mysqld/mysqld.sock)/%s", dbUsername, dbPassword, dbName))
 	if err != nil {
 		log.Fatalf("Could not establish database connection: %v", err)
 	}

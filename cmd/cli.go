@@ -6,14 +6,13 @@ import "flag"
 var (
 	dbQuery string
 	gui bool
-
-	// this is not a cli argument
-	resultChan chan []string
+	dbTable string
 )
 
 // cli args are intialized here
 func InitCliArgs() {
 	flag.StringVar(&dbQuery, "query", "", "query to use for querying the database")
+	flag.StringVar(&dbTable, "t", "", "the name of the table to execute the query on")
 	flag.BoolVar(&gui, "gui", true, "start the gui")
 	flag.Parse()
 }
@@ -27,6 +26,7 @@ func GetGui() bool {
 	return gui
 }
 
-func GetResultChan() chan []string {
-	return resultChan
+func GetTableName() string {
+	return dbTable
 }
+

@@ -1,16 +1,15 @@
+//go:build linux || windows
+// +build linux windows
+
 package cram
 
-import(
+import (
 	"fmt"
-	"runtime"
 )
-
-// get the current os that go is installed on
-func GetOs() string {
-	return runtime.GOOS
-}
 
 func Entry() {
 	InitCliArgs()
-	fmt.Println(GetOs())
+	conn := ConnectToDbSocket()
+	result2 := QueryDbCve(conn, "CVE-2016-8024")
+	fmt.Printf("%v", result2)
 }
