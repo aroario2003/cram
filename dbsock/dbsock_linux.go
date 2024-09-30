@@ -108,6 +108,7 @@ func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 		
 		results = append(results, values)
 	}
+
 	var result string
 	// Print the results (each row)
 	for _, row := range results {
@@ -127,6 +128,10 @@ func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 		}
 		result += "\n"
 	}
-	conn.Write([]byte(result))
+
+	_, err = conn.Write([]byte(result))
+	if err != nil {
+		log.Printf("Could not write results to database socket: %v", err)
+	}
 }
 

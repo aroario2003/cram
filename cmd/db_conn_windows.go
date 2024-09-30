@@ -16,8 +16,3 @@ func ConnectToDbSocket() *npipe.PipeConn {
 	
 	return conn
 }
-
-func GetDbConnection() *npipe.PipeConn {
-	conn := ConnectToDbSocket()	
-	return conn
-}

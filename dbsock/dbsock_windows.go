@@ -11,7 +11,6 @@ import (
 	"fmt"
 
 	"github.com/Ne0nd0g/npipe"
-	cram "github.com/aroario2003/cram/cmd"
 )
 
 func createSocketListenerWindows(pipePath string) *npipe.PipeListener {
@@ -72,17 +71,53 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 	}
 	// make sure that the table connection is closed
 	defer rows.Close()
+		// get column names
+	columns, err := rows.Columns()
+	if err != nil {
+		log.Fatalf("Could not get column names of table: %v", err)
+	}
+	
 	
 	// create a var for and print the resulting rows
-	var result []string
-	var row string
-	resultChan := cram.GetResultChan()
+	var results [][]interface{}
 	for rows.Next() {
-		if err := rows.Scan(&result); err != nil {
-			log.Printf("Could not read row in result of query: %v", err)
+		values := make([]interface{}, len(columns))
+		valuePtrs := make([]interface{}, len(columns))
+
+		for i := range values {
+			valuePtrs[i] = &values[i]
 		}
-		result = append(result, row)
+	
+		if err := rows.Scan(valuePtrs...); err != nil {
+			log.Fatal(err)
+		}
+		
+		results = append(results, values)
 	}
-	resultChan <- result
+
+	var result string
+	// Print the results (each row)
+	for _, row := range results {
+		for i, col := range row {
+			if b, ok := col.([]byte); ok {
+				if i+1 % len(columns) == 0 {
+					result = result + fmt.Sprintf("%s", string(b))
+				} else {
+					result = result + fmt.Sprintf("%s ", string(b))
+				}
+				if err != nil {
+					log.Printf("Could not write to database named pipe: %v", err)
+				}
+			} else {
+				result = result + fmt.Sprintf("%v ", col)
+			} 		
+		}
+		result += "\n"
+	}
+
+	_, err = conn.Write([]byte(result))
+	if err != nil {
+		log.Printf("Could not write results to database named pipe: %v", err)
+	}
 }
 
