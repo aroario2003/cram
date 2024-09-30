@@ -120,4 +120,3 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 		log.Printf("Could not write results to database named pipe: %v", err)
 	}
 }
-
