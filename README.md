@@ -4,6 +4,10 @@
 
 TODO
 
+# Security Notice
+
+We are aware that when starting dbsock you must enter the password for the database in plain text and that could be a problem for a security critical environment.
+
 ## Multi-platform building
 
 Go has a robust build system and therefore certain features are used to make this application multi-platform. To clarify, multi-platform means that this will not run natively on all platforms without certain modifications to the build system and codebase. You do not have to make these modifications as they are already made for you. However, it is worth knowing what they are.
