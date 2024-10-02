@@ -40,19 +40,40 @@ In order to increase efficiency we create a program that creates a unix doamin s
 
 ## Building dbsock
 
-In order to build dbsock, from the root of the project enter these commands:
+### On Linux
+
+In order to build dbsock on linux, from the root of the project enter these commands:
 
 ```shell
 $ cd dbsock
 $ go build -o dbsock
 ```
 
+### On Windows
+
+In order to build dbsock on windows, from the root of the project enter these commands:
+
+```shell
+$ cd dbsock
+$ go build -o dbsock.exe
+```
+
 ## Building the main program
+
+### On Linux
 
 From the root of the project do
 
 ```shell
 $ go build -o main
+```
+
+### On Windows
+
+From the root of the project do
+
+```shell
+$ go build -o main.exe
 ```
 
 ## Credits
