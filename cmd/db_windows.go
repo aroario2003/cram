@@ -18,7 +18,7 @@ import (
 
 func CountRowsReturned(result string) int {
 	rows := strings.Split(result, "\n")
-	return len(rows)
+	return len(rows)-1
 }
 
 // Takes os or software and returns cve number, vulnerability score and time to fix

@@ -6,12 +6,13 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"fmt"
 	"io"
 	"log"
 	"net"
 	"os"
-	"fmt"
-	
+	"strings"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -63,6 +64,22 @@ func CreateSocket(dbName string, dbUsername string, dbPassword string) {
 	}
 }
 
+func deDuplicateResults(results string) string {
+	var deDupArr []string
+	resultSet := make(map[string]struct{})
+	resultsArr := strings.Split(results, "\n")
+	for _, result := range resultsArr {
+		resultSet[result] = struct{}{}
+	}
+
+	for key := range resultSet {
+		deDupArr = append(deDupArr, key)
+	}
+
+	result := strings.Join(deDupArr, "\n")
+	return result
+}
+
 // handles each connection to the unix doamin socket created above
 func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 	defer conn.Close()
@@ -77,6 +94,7 @@ func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 	// get the query as a string
 	query := string(queryBuf[:n])
 	log.Printf("Executing Query: %s", query)
+
 	// get rows from query
 	rows, err := db.Query(query)
 	if err != nil {
@@ -90,7 +108,6 @@ func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 	if err != nil {
 		log.Fatalf("Could not get column names of table: %v", err)
 	}
-	
 	
 	// create a var for and print the resulting rows
 	var results [][]interface{}
@@ -129,6 +146,7 @@ func handleConnectionLinux(conn net.Conn, db *sql.DB) {
 		result += "\n"
 	}
 
+	result = deDuplicateResults(result)
 	_, err = conn.Write([]byte(result))
 	if err != nil {
 		log.Printf("Could not write results to database socket: %v", err)

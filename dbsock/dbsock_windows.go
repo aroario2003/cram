@@ -9,6 +9,7 @@ import (
 	"log"
 	"net"
 	"fmt"
+	"strings"
 
 	"github.com/Ne0nd0g/npipe"
 )
@@ -48,6 +49,22 @@ func CreateSocket(dbName string, dbUsername string, dbPassword string) {
 		// this runs asynchronously
 		go handleConnectionWindows(conn, db)
 	}
+}
+
+func deDuplicateResults(results string) string {
+	var deDupArr []string
+	resultSet := make(map[string]struct{})
+	resultsArr := strings.Split(results, "\n")
+	for _, result := range resultsArr {
+		resultSet[result] = struct{}{}
+	}
+
+	for key := range resultSet {
+		deDupArr = append(deDupArr, key)
+	}
+
+	result := strings.Join(deDupArr, "\n")
+	return result
 }
 
 // handles the connection to the named pipe on windows
@@ -115,6 +132,7 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 		result += "\n"
 	}
 
+	result = deDuplicateResults(result)
 	_, err = conn.Write([]byte(result))
 	if err != nil {
 		log.Printf("Could not write results to database named pipe: %v", err)
