@@ -11,9 +11,15 @@ package cram
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/Ne0nd0g/npipe"
 )
+
+func CountRowsReturned(result string) int {
+	rows := strings.Split(result, "\n")
+	return len(rows)
+}
 
 // Takes os or software and returns cve number, vulnerability score and time to fix
 func QueryDbOS(conn *npipe.PipeConn, os string) string {
@@ -51,4 +57,56 @@ func QueryDbCve(conn *npipe.PipeConn, cveNum string) string {
 		log.Printf("Could not read result from database socket: %v", err)
 	}
 	return resStr
+}
+
+func QueryDbMultiOs(oss []string) []string {
+	var results []string
+	
+	for _, os := range oss {
+		conn := ConnectToDbSocket()
+		defer conn.Close()
+
+		query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%';", GetTableName(), os)
+
+		_, err := conn.Write([]byte(query))
+		if err != nil {
+			log.Printf("Could not send query over connection: %v", err)
+		}
+
+		resultBuf := make([]byte, 10000000)
+		n, err :=  conn.Read(resultBuf)
+		if err != nil {
+			log.Printf("Could not read result from database socket: %v", err)
+		}
+
+		resStr := string(resultBuf[:n])
+		results = append(results, resStr)
+	}
+	return results
+}
+
+func QueryDbMultiCve(cves []string) []string {
+	var results []string
+	
+	for _, cve := range cves {
+		conn := ConnectToDbSocket()
+		defer conn.Close()
+
+		query := fmt.Sprintf("select Vulnerability_Score, Time_to_Fix from %s where CVE_Number = '%s'", GetTableName(), cve)
+
+		_, err := conn.Write([]byte(query))
+		if err != nil {
+			log.Printf("Could not send query over connection: %v", err)
+		}
+
+		resultBuf := make([]byte, 10000000)
+		n, err :=  conn.Read(resultBuf)
+		if err != nil {
+			log.Printf("Could not read result from database socket: %v", err)
+		}
+
+		resStr := string(resultBuf[:n])
+		results = append(results, resStr)
+	}
+	return results
 }
