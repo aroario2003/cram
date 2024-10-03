@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"strconv"
 
 	"github.com/Ne0nd0g/npipe"
 )
@@ -19,6 +20,58 @@ import (
 func CountRowsReturned(result string) int {
 	rows := strings.Split(result, "\n")
 	return len(rows)-1
+}
+
+// get the total cvss score of all vulnerabilities returned by the query
+func getTotalVulnerabilityScore(result string, rowsCount int) float32 {
+	var totalVulnScore float32
+	var vulnScoreStr string
+	resultsArr := strings.Split(result, "\n")
+
+	for _, result := range resultsArr {
+		resultArr := strings.Split(result, " ")
+
+		if GetSoftware() != "" || len(GetOss()) != 0 {
+			vulnScoreStr = resultArr[1]
+		} else if GetCveNum() != "" || len(GetCveNums()) != 0 {
+			vulnScoreStr = resultArr[0]
+		} 
+
+		vulnScore, err := strconv.ParseFloat(vulnScoreStr, 32)
+		if err != nil {
+			log.Printf("Could not convert string to float32 for total vulnerability score: %v", err)
+		}
+
+		totalVulnScore += float32(vulnScore)
+
+	}
+	totalVulnScore = totalVulnScore / float32(rowsCount)
+	return totalVulnScore
+}
+
+// gets the total time to fix of all vulnerabilities returned by the query
+func getTotalTimeToFix(result string) uint8 {
+	var totalTimeToFix uint8
+	var ttfStr string
+	resultsArr := strings.Split(result, "\n")
+
+	for _, result := range resultsArr {
+		resultArr := strings.Split(result, " ")
+
+		if GetSoftware() != "" || len(GetOss()) != 0 {
+			ttfStr = resultArr[2]
+		} else if GetCveNum() != "" || len(GetCveNums()) != 0 {
+			ttfStr = resultArr[1]
+		}
+
+		ttf, err := strconv.ParseUint(ttfStr, 10, 8)
+		if err != nil {
+			log.Printf("Could not convert string to uint8 for total time to fix: %v", err)
+		}
+
+		totalTimeToFix += uint8(ttf)
+	}
+	return totalTimeToFix
 }
 
 // Takes os or software and returns cve number, vulnerability score and time to fix

@@ -114,7 +114,7 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 
 	var result string
 	// Print the results (each row)
-	for _, row := range results {
+	for j, row := range results {
 		for i, col := range row {
 			if b, ok := col.([]byte); ok {
 				if i+1 % len(columns) == 0 {
@@ -129,7 +129,9 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 				result = result + fmt.Sprintf("%v ", col)
 			} 		
 		}
-		result += "\n"
+		if j < len(results)-1 {
+			result += "\n"
+		}
 	}
 
 	result = deDuplicateResults(result)

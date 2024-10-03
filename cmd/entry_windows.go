@@ -14,21 +14,33 @@ func Entry() {
 		conn := ConnectToDbSocket()
 		result := QueryDbOS(conn, GetSoftware())
 		numRows:= CountRowsReturned(result)
-		fmt.Printf("%v", result)
+		totalVulnScore := getTotalVulnerabilityScore(result, numRows)
+		totalTimeToFix := getTotalTimeToFix(result)
+		fmt.Printf("%v\n", result)
 		fmt.Printf("%d rows returned\n", numRows)
+		fmt.Printf("%f total vulnerability score\n", totalVulnScore)
+		fmt.Printf("%d total time to fix\n", totalTimeToFix)
 	} else if GetCveNum() != "" { 
 		conn := ConnectToDbSocket()
 		result := QueryDbCve(conn, GetCveNum())
 		numRows:= CountRowsReturned(result)
-		fmt.Printf("%v", result)
+		totalVulnScore := getTotalVulnerabilityScore(result, numRows)
+		totalTimeToFix := getTotalTimeToFix(result)
+		fmt.Printf("%v\n", result)
 		fmt.Printf("%d rows returned\n", numRows)
+		fmt.Printf("%f total vulnerability score\n", totalVulnScore)
+		fmt.Printf("%d total time to fix\n", totalTimeToFix)
 	} else if len(GetOss()) != 0 {
 		results := QueryDbMultiOs(GetOss())
 		for i, result := range results {
 			numRows := CountRowsReturned(result)
+			totalVulnScore := getTotalVulnerabilityScore(result, numRows)
+			totalTimeToFix := getTotalTimeToFix(result)
 			fmt.Printf("===============query %d===============\n", i+1)
-			fmt.Printf("%v", result)
+			fmt.Printf("%v\n", result)
 			fmt.Printf("%d rows returned\n", numRows)
+			fmt.Printf("%f total vulnerability score\n", totalVulnScore)
+			fmt.Printf("%d total time to fix\n", totalTimeToFix)
 			if i != len(results)-1 {
 				fmt.Printf("======================================\n")
 			} else {
@@ -39,9 +51,13 @@ func Entry() {
 		results := QueryDbMultiCve(GetCveNums())
 		for i, result := range results {
 			numRows := CountRowsReturned(result)
+			totalVulnScore := getTotalVulnerabilityScore(result, numRows)
+			totalTimeToFix := getTotalTimeToFix(result)
 			fmt.Printf("===============query %d===============\n", i+1)
-			fmt.Printf("%v", result)
+			fmt.Printf("%v\n", result)
 			fmt.Printf("%d rows returned\n", numRows)
+			fmt.Printf("%f total vulnerability score\n", totalVulnScore)
+			fmt.Printf("%d total time to fix\n", totalTimeToFix)
 			if i != len(results)-1 {
 				fmt.Printf("======================================\n")
 			} else {
