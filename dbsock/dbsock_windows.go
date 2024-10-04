@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/Ne0nd0g/npipe"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func createSocketListenerWindows(pipePath string) *npipe.PipeListener {
