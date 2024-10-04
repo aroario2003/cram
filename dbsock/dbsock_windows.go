@@ -34,7 +34,7 @@ func CreateSocket(dbName string, dbUsername string, dbPassword string) {
 
 	log.Printf("Named pipe created, listening...")
 	
-	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@unix(/var/run/mysqld/mysqld.sock)/%s", dbUsername, dbPassword, dbName))
+	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/%s", dbUsername, dbPassword, dbName))
 	if err != nil {
 		log.Fatalf("Could not establish database connection: %v", err)
 	}

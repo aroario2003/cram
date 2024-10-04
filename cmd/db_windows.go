@@ -19,7 +19,7 @@ import (
 
 func CountRowsReturned(result string) int {
 	rows := strings.Split(result, "\n")
-	return len(rows)-1
+	return len(rows)
 }
 
 // get the total cvss score of all vulnerabilities returned by the query
@@ -78,7 +78,7 @@ func getTotalTimeToFix(result string) uint8 {
 func QueryDbOS(conn *npipe.PipeConn, os string) string {
 	defer conn.Close()
 
-	query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%'", GetTableName())
+	query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%'", GetTableName(), os)
 	_, err := conn.Write([]byte(query))
 	if err != nil {
 		log.Printf("Could not send query over connection: %v", err)
