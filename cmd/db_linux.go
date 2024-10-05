@@ -31,9 +31,18 @@ func getTotalVulnerabilityScore(result string, rowsCount int) float32 {
 	for _, result := range resultsArr {
 		resultArr := strings.Split(result, " ")
 
+
 		if GetSoftware() != "" || len(GetOss()) != 0 {
+			if len(resultArr) < 3 {
+				log.Fatalf("The result does not have the correct amount of columns, your query paramaters may not exist or mysqld may not be started")
+			}
+
 			vulnScoreStr = resultArr[1]
 		} else if GetCveNum() != "" || len(GetCveNums()) != 0 {
+			if len(resultArr) < 2 {
+				log.Fatalf("The result does not have the correct amount of columns, your query paramaters may not exist or mysqld may not be started")
+			}
+
 			vulnScoreStr = resultArr[0]
 		} 
 
@@ -59,8 +68,16 @@ func getTotalTimeToFix(result string) uint8 {
 		resultArr := strings.Split(result, " ")
 
 		if GetSoftware() != "" || len(GetOss()) != 0 {
+			if len(resultArr) < 3 {
+				log.Fatalf("The result does not have the correct amount of columns, your query paramaters may not exist or mysqld may not be started")
+			}
+
 			ttfStr = resultArr[2]
 		} else if GetCveNum() != "" || len(GetCveNums()) != 0 {
+			if len(resultArr) < 2 {
+				log.Fatalf("The result does not have the correct amount of columns, your query paramaters may not exist or mysqld may not be started")
+			}
+
 			ttfStr = resultArr[1]
 		}
 
