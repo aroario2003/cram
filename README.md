@@ -68,7 +68,7 @@ Refer to [this](https://go.dev/doc/install) page for instructions.
 
 ## What is dbsock?
 
-In order to increase efficiency we create a program that creates a unix domain socket or named pipe on windows that maintains the database conection even while the cli isnt being run. Dbsock is the program that creates that socket and connects it to the database.
+In order to increase efficiency we create a program that creates a unix domain socket or named pipe on windows that maintains the database conection even while the cli isnt running. Dbsock is the program that creates that socket and connects it to the database.
 
 ## Building dbsock
 
@@ -151,7 +151,7 @@ $ ./main -t <table-name> -? ...
 The `?` should be replaced with one of the following characters:
 
 | Flag | Argument(s)
-|------+-------------------------------------------------------|
+|------|-------------------------------------------------------|
 | s    | Takes one argument, the name of the software          |
 | c    | Takes one argument, the name of the cve               |
 | S    | Takes variable arguments, the names of the softwares  |
