@@ -24,17 +24,17 @@ We are aware that when starting dbsock you must enter the password for the datab
 
 The following is the scale for the total time to fix:
 
-0: seconds to fix 
-1: 1 minute to fix 
-2: 5 minutes to fix 
-3: 15 minutes to fix 
-4: 30 minutes to fix
-5: hour to fix 
-6: 2 hours to fix 
-7: 4 hours to fix 
-8: 8 hours to fix
-9: 12 hours to fix
-10: full day to fix
+- 0: seconds to fix 
+- 1: 1 minute to fix 
+- 2: 5 minutes to fix 
+- 3: 15 minutes to fix 
+- 4: 30 minutes to fix
+- 5: hour to fix 
+- 6: 2 hours to fix 
+- 7: 4 hours to fix 
+- 8: 8 hours to fix
+- 9: 12 hours to fix
+- 10: full day to fix
 
 ## Multi-platform building
 
@@ -161,5 +161,5 @@ The `...` represents the arguments to that flag
 
 ## Credits
 
-Alfrickr - Created the database and worked on developing GUI
-Bluelightspirit - Contributed ideas for CLI and helped with testing on windows
+- Alfrickr - Created the database and worked on developing GUI
+- Bluelightspirit - Contributed ideas for CLI and helped with testing on windows
