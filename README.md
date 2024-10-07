@@ -120,6 +120,14 @@ The `program-name` maybe either `dbsock` or `main`
 
 You will most likely only have to do this the first time you build the programs.
 
+## Loading The Database
+
+Before loading the database you should make sure that you have either `mariadb` or `mysql` installed on your system. To load the database into the software you can use the following command from the root of the project:
+
+```shell
+mysql -u <username> -p <db-name> test/CVEsList_tinyint.sql
+```
+
 ## Using Dbsock
 
 In order to start dbsock, to maintain a constant database connection, you must give the binary three command line arguments, first is the username of the user for the database software. Second is the name of the database that you want to use. Finally is the password of the user that you are logging into database software with. The full command resembles the following:
