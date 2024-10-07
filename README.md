@@ -159,6 +159,14 @@ The `?` should be replaced with one of the following characters:
 
 The `...` represents the arguments to that flag 
 
+## Starting the GUI
+
+The GUI can be started by using the `main` binary after starting `dbsock`, refer to the `Using Dbsock` section for instructions on how to start it. To start the gui you can use the following command:
+
+```shell
+$ ./main -t <table-name> -gui
+```
+
 ## Credits
 
 - Alfrickr - Created the database and worked on developing GUI
