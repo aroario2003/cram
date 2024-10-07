@@ -125,7 +125,7 @@ You will most likely only have to do this the first time you build the programs.
 Before loading the database you should make sure that you have either `mariadb` or `mysql` installed on your system. To load the database into the software you can use the following command from the root of the project:
 
 ```shell
-mysql -u <username> -p <db-name> test/CVEsList_tinyint.sql
+$ mysql -u <username> -p <db-name> test/CVEsList_tinyint.sql
 ```
 
 ## Using Dbsock
