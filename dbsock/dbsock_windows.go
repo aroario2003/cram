@@ -32,7 +32,7 @@ func CreateSocket(dbName string, dbUsername string, dbPassword string) {
 	listener := createSocketListenerWindows(pipePath)
 	defer listener.Close()
 
-	log.Printf("Named pipe created, listening...")
+	log.Printf("Named pipe created, waiting for queries...")
 	
 	db, err := sql.Open("mysql", fmt.Sprintf("%s:%s@tcp(127.0.0.1:3306)/%s", dbUsername, dbPassword, dbName))
 	if err != nil {

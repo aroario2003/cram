@@ -23,7 +23,7 @@ func CountRowsReturned(result string) int {
 }
 
 // get the total cvss score of all vulnerabilities returned by the query
-func getTotalVulnerabilityScore(result string, rowsCount int) float32 {
+func GetTotalVulnerabilityScore(result string, rowsCount int) float32 {
 	var totalVulnScore float32
 	var vulnScoreStr string
 	resultsArr := strings.Split(result, "\n")
@@ -58,7 +58,7 @@ func getTotalVulnerabilityScore(result string, rowsCount int) float32 {
 }
 
 // gets the total time to fix of all vulnerabilities returned by the query
-func getTotalTimeToFix(result string) uint8 {
+func GetTotalTimeToFix(result string) uint8 {
 	var totalTimeToFix uint8
 	var ttfStr string
 	resultsArr := strings.Split(result, "\n")

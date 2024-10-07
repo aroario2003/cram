@@ -37,7 +37,7 @@ func InitCliArgs() {
 	flag.StringVar(&cveNum, "c", "", "use the cve number query on the cve number specified")
 	flag.Var(&softwares, "S", "multiple os's to query in a list")
 	flag.Var(&cveNums, "C", "multiple cve's to query in a list")
-	flag.BoolVar(&gui, "gui", true, "start the gui")
+	flag.BoolVar(&gui, "gui", false, "start the gui")
 	flag.Parse()
 
 	parseSorCFlags()
@@ -101,4 +101,23 @@ func GetOss() argsArray {
 
 func GetCveNums() argsArray {
 	return cveNums
+}
+
+// Below are setters for certain variables that are 
+// command line arguments, this is the easiest way to 
+// get the gui to work without too much refactoring
+func SetSoftware(os string) {
+	software = os
+}
+
+func SetCveNum(cve string) {
+	cveNum = cve
+}
+
+func SetSoftwares(oss []string) {
+	softwares = oss
+}
+
+func SetCveNums(cves []string) {
+	cveNums = cves
 }

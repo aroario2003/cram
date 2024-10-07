@@ -8,14 +8,12 @@ import (
 )
 
 func Entry() {
-	InitCliArgs()
-
 	if GetSoftware() != "" {
 		conn := ConnectToDbSocket()
 		result := QueryDbOS(conn, GetSoftware())
 		numRows := CountRowsReturned(result)
-		totalVulnScore := getTotalVulnerabilityScore(result, numRows)
-		totalTimeToFix := getTotalTimeToFix(result)
+		totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
+		totalTimeToFix := GetTotalTimeToFix(result)
 		fmt.Printf("%v\n", result)
 		fmt.Printf("%d rows returned\n", numRows)
 		fmt.Printf("%f total vulnerability score\n", totalVulnScore)
@@ -24,8 +22,8 @@ func Entry() {
 		conn := ConnectToDbSocket()
 		result := QueryDbCve(conn, GetCveNum())
 		numRows := CountRowsReturned(result)
-		totalVulnScore := getTotalVulnerabilityScore(result, numRows)
-		totalTimeToFix := getTotalTimeToFix(result)
+		totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
+		totalTimeToFix := GetTotalTimeToFix(result)
 		fmt.Printf("%v\n", result)
 		fmt.Printf("%d rows returned\n", numRows)
 		fmt.Printf("%f total vulnerability score\n", totalVulnScore)
@@ -34,8 +32,8 @@ func Entry() {
 		results := QueryDbMultiOs(GetOss())
 		for i, result := range results {
 			numRows := CountRowsReturned(result)
-			totalVulnScore := getTotalVulnerabilityScore(result, numRows)
-			totalTimeToFix := getTotalTimeToFix(result)
+			totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
+			totalTimeToFix := GetTotalTimeToFix(result)
 			fmt.Printf("===============query %d===============\n", i+1)
 			fmt.Printf("%v\n", result)
 			fmt.Printf("%d rows returned\n", numRows)
@@ -51,8 +49,8 @@ func Entry() {
 		results := QueryDbMultiCve(GetCveNums())
 		for i, result := range results {
 			numRows := CountRowsReturned(result)
-			totalVulnScore := getTotalVulnerabilityScore(result, numRows)
-			totalTimeToFix := getTotalTimeToFix(result)
+			totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
+			totalTimeToFix := GetTotalTimeToFix(result)
 			fmt.Printf("===============query %d===============\n", i+1)
 			fmt.Printf("%v\n", result)
 			fmt.Printf("%d rows returned\n", numRows)
