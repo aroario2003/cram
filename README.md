@@ -66,6 +66,25 @@ Because of the multi-platform nature of this application, their is quite a bit o
 
 Refer to [this](https://go.dev/doc/install) page for instructions.
 
+## Clone The Repository
+
+Before continuing you should make sure that you have the repository locally:
+
+```shell
+$ git clone https://github.com/aroario2003/cram
+```
+
+## Dependencies
+
+- `fyne`
+- `npipe`
+
+The dependencies are specified in `go.mod`, in order to install them all you have to do is from the root of the project execute:
+
+```shell
+$ go mod tidy
+```
+
 ## What is dbsock?
 
 In order to increase efficiency we create a program that creates a unix domain socket or named pipe on windows that maintains the database conection even while the cli isnt running. Dbsock is the program that creates that socket and connects it to the database.
