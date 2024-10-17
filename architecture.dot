@@ -1,0 +1,18 @@
+digraph G {
+    ConnectToDbSocket -> CreateSocket
+    CreateSocket -> UDS
+    UDS -> HandleConnection
+    HandleConnection -> UDS
+    UDS -> Database
+    Database -> UDS
+    QueryDbOs -> HandleConnection
+    QueryDbCve -> HandleConnection
+    QueryDbMultiOs -> HandleConnection
+    QueryDbMultiCve -> HandleConnection
+    MarkAsSolved -> HandleConnection
+    HandleConnection -> QueryDbOs
+    HandleConnection -> QueryDbCve
+    HandleConnection -> QueryDbMultiOs
+    HandleConnection -> QueryDbMultiCve
+    HandleConnection -> MarkAsSolved
+}
