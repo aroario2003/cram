@@ -11,7 +11,6 @@ package cram
 import (
 	"fmt"
 	"log"
-	"math"
 	"net"
 	"strconv"
 	"strings"
@@ -53,21 +52,24 @@ func GetTotalVulnerabilityScore(result string, rowsCount int) float32 {
 		}
 
 		// weighting with linear scaling
-		totalVulnScore += float32(vulnScore)
+		totalVulnScore += float32(vulnScore) * float32(vulnScore)
+	}
+	
+	rawVulnScore := totalVulnScore / float32(rowsCount)
+	vulnScore := 100 - rawVulnScore
+	
+	if vulnScore >= 75.0 && vulnScore <= 100.0 {
+		vulnScore = vulnScore * 0.75
+	} else if vulnScore >= 0 && vulnScore <= 35.0 {
+		vulnScore = vulnScore * 1.25 
 	}
 
-	avgRating := totalVulnScore / float32(rowsCount)
-	scaleFactor := math.Log2(float64(rowsCount + 1))
-	weightedScore := avgRating * float32(scaleFactor)
-	linearScore := weightedScore / 10 * float32(scaleFactor) 
-	invertedScore := 100 - linearScore
-
-	return invertedScore
+	return vulnScore
 }
 
 // gets the total time to fix of all vulnerabilities returned by the query
-func GetTotalTimeToFix(result string) uint8 {
-	var totalTimeToFix uint8
+func GetTotalTimeToFix(result string) uint16 {
+	var totalTimeToFix uint16
 	var ttfStr string
 	resultsArr := strings.Split(result, "\n")
 
@@ -93,7 +95,34 @@ func GetTotalTimeToFix(result string) uint8 {
 			log.Printf("Could not convert string to uint8 for total time to fix: %v", err)
 		}
 
-		totalTimeToFix += uint8(ttf)
+		totalTimeToFix += uint16(ttf)
+	}
+	
+	minutes := (totalTimeToFix % 3600) / 60
+	hours := totalTimeToFix / 3600
+
+	if hours == 0 && minutes == 0 { 
+		totalTimeToFix = 0 
+	} else if hours == 0 && minutes == 1 { 
+		totalTimeToFix = 1 
+	} else if hours == 0 && minutes <= 5 {
+		totalTimeToFix = 2
+	} else if hours == 0 && minutes <= 15 {
+		totalTimeToFix = 3 
+	} else if hours == 0 && minutes <= 30 {
+		totalTimeToFix = 4 
+	} else if hours == 1 && minutes == 0 {
+		totalTimeToFix = 5
+	} else if hours == 2 && minutes == 0 {
+		totalTimeToFix = 6
+	} else if hours <= 4 {
+		totalTimeToFix = 7
+	} else if hours <= 8 {
+		totalTimeToFix = 8
+	} else if hours <= 12 {
+		totalTimeToFix = 9
+	} else if hours <= 24 {
+		totalTimeToFix = 10
 	}
 	return totalTimeToFix
 }
