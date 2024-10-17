@@ -62,6 +62,16 @@ This tells the compiler that it should build this file specifically when the run
 
 Because of the multi-platform nature of this application, their is quite a bit of code duplication in multiple functions throughout. However, this is absolutely necessary because functions will return different types depending on the operating system and therefore must be duplicated for the platforms supported.
 
+## System Architecture
+
+The architecture of the cram cli can be viewed by compiling the file named `architecture.dot`. In order to do this you will need a program known as `graphviz` installed. Once it is installed you can execute the following command from the root of the project:
+
+```shell
+$ dot -Tsvg < architecture.dot > architecture.svg
+```
+
+The uml diagram for the architecture will now be in a a file named `architecture.svg`.
+
 ## Installing Go
 
 Refer to [this](https://go.dev/doc/install) page for instructions.
