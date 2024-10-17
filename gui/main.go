@@ -98,9 +98,13 @@ func Show() {
 		timeToFixLabel.SetText(fmt.Sprintf("Time(s) to Fix: %s", ttfScoreStr))
 		topCVEsLabel.SetText(fmt.Sprintf("Top CVEs: %s", topCveStr))
 	})
+	
+	markAsSolvedBtn := widget.NewButton("Mark as Solved", func() {
+		markAsSolvedWindow(w)
+	})
 
 	// UI
-	buttons := container.NewHBox(queryDbOSBtn, queryDbCveBtn, queryDbMultiOsBtn, queryDbMultiCveBtn)
+	buttons := container.NewHBox(queryDbOSBtn, queryDbCveBtn, queryDbMultiOsBtn, queryDbMultiCveBtn, markAsSolvedBtn)
 	querySection := container.NewVBox(queryInput, buttons)
 	leftPane := container.NewVBox(vulnScoreLabel)
 	rightPane := container.NewVBox(timeToFixLabel)
@@ -112,3 +116,37 @@ func Show() {
 
 	w.ShowAndRun()
 }
+
+func markAsSolvedWindow(w fyne.Window) {
+	cveNameBox := widget.NewEntry()
+	cveNameBox.SetPlaceHolder("Enter cve name...") 
+
+	var popup *widget.PopUp
+	submitBtn := widget.NewButton("Submit", func() {
+		cveName := cveNameBox.Text
+		cram.MarkAsSolved(cveName)
+	})
+
+	closeBtn := widget.NewButton("Close", func() {
+		popup.Hide()
+	})
+
+	popup = widget.NewPopUp(
+		container.NewVBox(
+			cveNameBox, 
+			container.NewHBox(
+				submitBtn,
+				closeBtn,
+			),
+		),
+		w.Canvas(), 
+	)
+
+	windowSize := w.Canvas().Size()
+	popupSize := popup.MinSize()
+	centerPosition := fyne.NewPos(
+		(windowSize.Width-popupSize.Width)/2,
+		(windowSize.Height-popupSize.Height)/2,
+	)
+	popup.ShowAtPosition(centerPosition)
+} 

@@ -11,9 +11,10 @@ package cram
 import (
 	"fmt"
 	"log"
+	"math"
 	"net"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 // get the amount of rows returned by the query
@@ -51,11 +52,17 @@ func GetTotalVulnerabilityScore(result string, rowsCount int) float32 {
 			log.Printf("Could not convert string to float32 for total vulnerability score: %v", err)
 		}
 
+		// weighting with linear scaling
 		totalVulnScore += float32(vulnScore)
-
 	}
-	totalVulnScore = totalVulnScore / float32(rowsCount)
-	return totalVulnScore
+
+	avgRating := totalVulnScore / float32(rowsCount)
+	scaleFactor := math.Log2(float64(rowsCount + 1))
+	weightedScore := avgRating * float32(scaleFactor)
+	linearScore := weightedScore / 10 * float32(scaleFactor) 
+	invertedScore := 100 - linearScore
+
+	return invertedScore
 }
 
 // gets the total time to fix of all vulnerabilities returned by the query
@@ -183,4 +190,15 @@ func QueryDbMultiCve(cves []string) []string {
 		results = append(results, resStr)
 	}
 	return results
+}
+
+func MarkAsSolved(cveName string) {
+	conn := ConnectToDbSocket()
+	defer conn.Close()
+	
+	query := fmt.Sprintf("update %s set Solved = 1 where CVE_Number = '%s'", GetTableName(), cveName)
+	_, err := conn.Write([]byte(query))
+	if err != nil {
+		log.Printf("Could not send query over connection: %v", err)
+	}
 }
