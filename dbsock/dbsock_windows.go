@@ -70,6 +70,7 @@ func deDuplicateResults(results string) string {
 
 // handles the connection to the named pipe on windows
 func handleConnectionWindows(conn net.Conn, db *sql.DB) {
+	update := false
 	defer conn.Close()
 	
 	queryBuf := make([]byte, 1024)
@@ -80,6 +81,10 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 
 	// get the query as a string
 	query := string(queryBuf[:n])
+	query_parts := strings.Split(query, " ")
+	if query_parts[0] == "update" {
+		update = true
+	}
 	log.Printf("Executing Query: %s", query)
 
 	// get rows from query
@@ -135,9 +140,13 @@ func handleConnectionWindows(conn net.Conn, db *sql.DB) {
 		}
 	}
 
-	result = deDuplicateResults(result)
-	_, err = conn.Write([]byte(result))
-	if err != nil {
-		log.Printf("Could not write results to database named pipe: %v", err)
+	if !update {
+		result = deDuplicateResults(result)
+		_, err = conn.Write([]byte(result))
+		if err != nil {
+			log.Printf("Could not write results to database named pipe: %v", err)
+		}
+	} else {
+		log.Printf("Udpated database successfully")
 	}
 }
