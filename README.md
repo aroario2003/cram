@@ -224,7 +224,12 @@ The GUI can be started by using the `main` binary after starting `dbsock`, refer
 $ ./main -t <table-name> -gui
 ```
 
+## A Word About Simplicity
+
+We are aware that our solution is simple at its core. However, this fact comes with an advantage, our solution is extremely versatile. For example, you could make web scraper which searches for specific vulnerabilities with certain criteria and put them into a database and use our solution to investigate them further. You could integrate our solution with an AI model and train it on the results from our solution, therefore allowing it to analyze vulnerabilities for a given system at the same level, possibly with more detailed explanations as to why the score is the way it is. Therefore, although it is simple, the possiblities of what can be done with it are endless.
+
 ## Credits
 
 - Alfrickr - Created the database and worked on developing GUI
 - Bluelightspirit - Contributed ideas for CLI and helped with testing on windows
+- aroario2003 - Main architect and wrote the CLI and some of the GUI
