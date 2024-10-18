@@ -50,16 +50,19 @@ func GetTotalVulnerabilityScore(result string, rowsCount int) float32 {
 			log.Printf("Could not convert string to float32 for total vulnerability score: %v", err)
 		}
 
-		totalVulnScore += float32(vulnScore)
+		totalVulnScore += float32(vulnScore) * float32(vulnScore)
 
 	}
-	totalVulnScore = totalVulnScore / float32(rowsCount)
-	return totalVulnScore
+
+	rawVulnScore := totalVulnScore / float32(rowsCount)
+	vulnScore := 100 - rawVulnScore
+
+	return vulnScore
 }
 
 // gets the total time to fix of all vulnerabilities returned by the query
-func GetTotalTimeToFix(result string) uint8 {
-	var totalTimeToFix uint8
+func GetTotalTimeToFix(result string) uint16 {
+	var totalTimeToFix uint16
 	var ttfStr string
 	resultsArr := strings.Split(result, "\n")
 
@@ -85,8 +88,36 @@ func GetTotalTimeToFix(result string) uint8 {
 			log.Printf("Could not convert string to uint8 for total time to fix: %v", err)
 		}
 
-		totalTimeToFix += uint8(ttf)
+		totalTimeToFix += uint16(ttf)
 	}
+
+	minutes := (totalTimeToFix % 3600) / 60
+	hours := totalTimeToFix / 3600
+
+	if hours == 0 && minutes == 0 { 
+		totalTimeToFix = 0 
+	} else if hours == 0 && minutes == 1 { 
+		totalTimeToFix = 1 
+	} else if hours == 0 && minutes <= 5 {
+		totalTimeToFix = 2
+	} else if hours == 0 && minutes <= 15 {
+		totalTimeToFix = 3 
+	} else if hours == 0 && minutes <= 30 {
+		totalTimeToFix = 4 
+	} else if hours == 1 && minutes == 0 {
+		totalTimeToFix = 5
+	} else if hours == 2 && minutes == 0 {
+		totalTimeToFix = 6
+	} else if hours <= 4 {
+		totalTimeToFix = 7
+	} else if hours <= 8 {
+		totalTimeToFix = 8
+	} else if hours <= 12 {
+		totalTimeToFix = 9
+	} else if hours <= 24 {
+		totalTimeToFix = 10
+	}
+
 	return totalTimeToFix
 }
 

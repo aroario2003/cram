@@ -57,12 +57,6 @@ func GetTotalVulnerabilityScore(result string, rowsCount int) float32 {
 	
 	rawVulnScore := totalVulnScore / float32(rowsCount)
 	vulnScore := 100 - rawVulnScore
-	
-	if vulnScore >= 75.0 && vulnScore <= 100.0 {
-		vulnScore = vulnScore * 0.75
-	} else if vulnScore >= 0 && vulnScore <= 35.0 {
-		vulnScore = vulnScore * 1.25 
-	}
 
 	return vulnScore
 }
