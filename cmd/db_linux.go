@@ -125,7 +125,7 @@ func GetTotalTimeToFix(result string) uint16 {
 func QueryDbOS(conn net.Conn, os string) string {
 	defer conn.Close()
 
-	query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%'", GetTableName(), os)
+	query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%' and Solved = 0", GetTableName(), os)
 
 	_, err := conn.Write([]byte(query))
 	if err != nil {
@@ -146,7 +146,7 @@ func QueryDbOS(conn net.Conn, os string) string {
 func QueryDbCve(conn net.Conn, cveNum string) string {
 	defer conn.Close()
 
-	query := fmt.Sprintf("select Vulnerability_Score, Time_to_Fix from %s where CVE_Number = '%s'", GetTableName(), cveNum)
+	query := fmt.Sprintf("select Vulnerability_Score, Time_to_Fix from %s where CVE_Number = '%s' and Solved = 0", GetTableName(), cveNum)
 
 	_, err := conn.Write([]byte(query))
 	if err != nil {
@@ -170,7 +170,7 @@ func QueryDbMultiOs(oss []string) []string {
 		conn := ConnectToDbSocket()
 		defer conn.Close()
 
-		query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%';", GetTableName(), os)
+		query := fmt.Sprintf("select CVE_Number, Vulnerability_Score, Time_to_Fix from %s where Software like '%%%s%%' and Solved = 0", GetTableName(), os)
 
 		_, err := conn.Write([]byte(query))
 		if err != nil {
@@ -196,7 +196,7 @@ func QueryDbMultiCve(cves []string) []string {
 		conn := ConnectToDbSocket()
 		defer conn.Close()
 
-		query := fmt.Sprintf("select Vulnerability_Score, Time_to_Fix from %s where CVE_Number = '%s'", GetTableName(), cve)
+		query := fmt.Sprintf("select Vulnerability_Score, Time_to_Fix from %s where CVE_Number = '%s' and Solved = 0", GetTableName(), cve)
 
 		_, err := conn.Write([]byte(query))
 		if err != nil {
