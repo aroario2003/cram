@@ -149,15 +149,33 @@ The `program-name` maybe either `dbsock` or `main`
 
 You will most likely only have to do this the first time you build the programs.
 
-## Loading The Database
+## Creating the Database
 
-Before loading the database you should make sure that you have either `mariadb` or `mysql` installed on your system. To load the database into the software you can use the following command from the root of the project:
+Before creating the database you should make sure that you have `mariadb` installed on your system, mariadb provides a mysql binary. Once mariadb is installed, you should enter its shell as the root user:
 
 ```shell
-$ mysql -u <username> -p <db-name> db/<filename>.sql
+mariadb -u root -p
 ```
 
-`filename` mayber any sql file in the `db` directory.
+You can use the same password as the root user on your local system on linux. On windows this should have been configured in the installer.
+
+Then you should create the database:
+
+```sql
+CREATE DATABASE <db-name>;
+```
+
+## Loading The Table
+
+To load the table into the database you can use the following command from the root of the project:
+
+```shell
+$ mysql -u root -p <db-name> db/<filename>.sql
+```
+
+`db-name` should be the same name you use to create the database above.`filename` maybe any sql file in the `db` directory.
+
+**NOTE** doing these operations as the root user is inherently unsafe and we are aware of this concern. However, this is solely for demonstration and testing purposes.
 
 ## Using Dbsock
 
