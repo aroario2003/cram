@@ -210,3 +210,14 @@ func QueryDbMultiCve(cves []string) []string {
 	}
 	return results
 }
+
+func MarkAsSolved(cveName string) {
+	conn := ConnectToDbSocket()
+	defer conn.Close()
+	
+	query := fmt.Sprintf("update %s set Solved = 1 where CVE_Number = '%s'", GetTableName(), cveName)
+	_, err := conn.Write([]byte(query))
+	if err != nil {
+		log.Printf("Could not send query over connection: %v", err)
+	}
+}
