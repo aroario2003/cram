@@ -131,11 +131,20 @@ $ go build -o main
 
 ### On Windows
 
-From the root of the project do
+Before building the main binary on windows you will need msys2 and gcc. In order to install these programs, follow the windows instructions on [this page](https://docs.fyne.io/started/)
+
+Once that is done you need to make sure that cgo is enabled:
+
+```shell
+$ go env -w CGO_ENABLED=1
+```
+
+Now from the root of the project do
 
 ```shell
 $ go build -o main.exe
 ```
+
 
 ## Error When Building on Windows
 
@@ -224,6 +233,8 @@ The GUI can be started by using the `main` binary after starting `dbsock`, refer
 $ ./main -t <table-name> -gui
 ```
 
+**NOTE** The gui on windows may not work depending on the system you have. This is due to openGL compatibility issues. You can try to update your graphics driver, however, this may not fix it. If this issue does arise, you should use WSL. 
+
 ## A Word About Simplicity
 
 We are aware that our solution is simple at its core. However, this fact comes with an advantage, our solution is extremely versatile. For example, you could make web scraper which searches for specific vulnerabilities with certain criteria and put them into a database and use our solution to investigate them further. You could integrate our solution with an AI model and train it on the results from our solution, therefore allowing it to analyze vulnerabilities for a given system at the same level, possibly with more detailed explanations as to why the score is the way it is. Therefore, although it is simple, the possiblities of what can be done with it are endless.
@@ -232,4 +243,4 @@ We are aware that our solution is simple at its core. However, this fact comes w
 
 - Alfrickr - Created the database and worked on developing GUI
 - Bluelightspirit - Contributed ideas for CLI and helped with testing on windows
-- aroario2003 - Main architect and wrote the CLI and some of the GUI
+- aroario2003 - Main architect, wrote the CLI and some of the GUI
