@@ -20,7 +20,7 @@ We are aware that when starting dbsock you must enter the password for the datab
 - Microsoft Windows Server 2008 – Service Pack 2 | Version: Windows Server 2008 SP2
 - Apache OpenOffice (Open Source) | Version: 4.1.1.4
 
-- # Software Versions Supported for SUE2
+# Software Versions Supported for SUE2
 
 - Cisco Firepower 4125 – Firepower Threat Defense (FTD) Software | Version: 6.6.7
 - Cisco Meraki MS425-32 Layer 3 Switch – Firmware 2014-09-23 | Version: 2014-09-23
