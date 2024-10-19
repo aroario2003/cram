@@ -235,6 +235,10 @@ $ ./main -t <table-name> -gui
 
 **NOTE** The gui on windows may not work depending on the system you have. This is due to openGL compatibility issues. You can try to update your graphics driver, however, this may not fix it. If this issue does arise, you should use WSL. 
 
+## Executables
+
+Executables for both dbsock and the main program for both windows and linux can be found under the [releases page](https://github.com/aroario2003/cram/releases/tag/v0.0.1).
+
 ## A Word About Simplicity
 
 We are aware that our solution is simple at its core. However, this fact comes with an advantage, our solution is extremely versatile. For example, you could make web scraper which searches for specific vulnerabilities with certain criteria and put them into a database and use our solution to investigate them further. You could integrate our solution with an AI model and train it on the results from our solution, therefore allowing it to analyze vulnerabilities for a given system at the same level, possibly with more detailed explanations as to why the score is the way it is. Therefore, although it is simple, the possiblities of what can be done with it are endless.
