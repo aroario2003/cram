@@ -35,9 +35,9 @@ We are aware that when starting dbsock you must enter the password for the datab
 - Microsoft IIS | Version: IIS 7.5
 - OpenVPN VPN Server | Version: v2.3
 - Jenkins CI/CD pipeline | Version: v2.32.3 LTS
-- August Connect Wi-Fi Bridge phone application - v10.11.0
-- August Connect device firmware - v2.2.12
-- Netgear WAC510 Wireless Access Point Firmware - Version: 5.0.0.16
+- August Connect Wi-Fi Bridge phone application | Version: v10.11.0
+- August Connect device firmware | Version: v2.2.12
+- Netgear WAC510 Wireless Access Point Firmware | Version: 5.0.0.16
 
 # Time To Fix Scale
 
