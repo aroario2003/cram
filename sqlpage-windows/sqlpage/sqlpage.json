@@ -1,0 +1,3 @@
+{
+  "database_url": "mysql://root:abcd@localhost:3306/alejandro?mode=rwc"
+}
