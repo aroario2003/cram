@@ -8,17 +8,36 @@ CRAM CLI streamlines the process of querying security vulnerabilities, offering 
 
 We are aware that when starting dbsock you must enter the password for the database in plain text and that could be a problem for a security critical environment.
 
-# Software Versions Supported
+# Software Versions Supported for SUE1
 
-- Cisco Firepower 4125 – Firepower Threat Defense (FTD) Software Version: 6.6.7
-- Cisco Meraki MS425-32 Layer 3 Switch – Firmware: 2014-09-23
-- Cisco Catalyst 2960-X Layer 2 Gigabit Ethernet Network Switch – IOS Version: 15.2(1)E
-- RedHat Enterprise Linux (RHEL):  Version 5.0 Version 6.0 Version 7.1
-- McAfee VirusScan Enterprise – Version: 2.0
-- Tenable Nessus Vulnerability Scanner – Version: 8.10.0
-- Splunk Security Information and Event Manager (SIEM) – Version: 8.6
-- Microsoft Windows Server 2008 – Service Pack 2
-- Apache OpenOffice (Open Source) – Version: 4.1.1.4
+- Cisco Firepower 4125 – Firepower Threat Defense (FTD) Software | Version: 6.6.7
+- Cisco Meraki MS425-32 Layer 3 Switch – Firmware 2014-09-23 | Version: 2014-09-23
+- Cisco Catalyst 2960-X Layer 2 Gigabit Ethernet Network Switch | Version: IOS 15.2(1)E
+- RedHat Enterprise Linux (RHEL) | Version: RHEL 5.0 | Version: RHEL 6.0 | Version: RHEL 7.1
+- McAfee VirusScan Enterprise | Version: 2.0
+- Tenable Nessus Vulnerability Scanner | Version: 8.10.0
+- Splunk Security Information and Event Manager (SIEM) | Version: 8.6
+- Microsoft Windows Server 2008 – Service Pack 2 | Version: Windows Server 2008 SP2
+- Apache OpenOffice (Open Source) | Version: 4.1.1.4
+
+- # Software Versions Supported for SUE2
+
+- Cisco Firepower 4125 – Firepower Threat Defense (FTD) Software | Version: 6.6.7
+- Cisco Meraki MS425-32 Layer 3 Switch – Firmware 2014-09-23 | Version: 2014-09-23
+- Cisco Catalyst 2960-X Layer 2 Gigabit Ethernet Network Switch | Version: IOS 15.2(1)E
+- RedHat Enterprise Linux (RHEL) | Version: RHEL 5.0 | Version: RHEL 6.0 | Version: RHEL 7.1
+- McAfee VirusScan Enterprise | Version: 2.0
+- Tenable Nessus Vulnerability Scanner | Version: 8.10.0
+- Splunk Security Information and Event Manager (SIEM) | Version: 8.6
+- Microsoft Windows Server 2008 – Service Pack 2 | Version: Windows Server 2008 SP2
+- Apache OpenOffice (Open Source) | Version: 4.1.1.4
+- Microsoft SQL Server | Version: SQL Server 2008 SP2
+- Microsoft IIS | Version: IIS 7.5
+- OpenVPN VPN Server | Version: v2.3
+- Jenkins CI/CD pipeline | Version: v2.32.3 LTS
+- August Connect Wi-Fi Bridge phone application - v10.11.0
+- August Connect device firmware - v2.2.12
+- Netgear WAC510 Wireless Access Point Firmware - Version: 5.0.0.16
 
 # Time To Fix Scale
 
