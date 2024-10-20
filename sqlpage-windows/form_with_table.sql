@@ -87,7 +87,7 @@ DELETE FROM sue1 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 
 --SELECT 'steps' as component;
 SELECT 'title' as component,
-CONCAT('Security Score: ', 100-((SELECT IFNULL(SUM(POW(Vulnerability_Score,2)) / COUNT(*), "0") FROM SUE1)*$criticality) , ' / 100') AS contents;
+CONCAT('Security Score: ', .8*(100-((SELECT IFNULL(SUM(POW(Vulnerability_Score,2)) / COUNT(*), "0") FROM SUE1)*$criticality))+(.2*(100-(SELECT SUM(POW(last_365_days.Vulnerability_Score,2))/COUNT(sue1.SW_Description) FROM last_365_days INNER JOIN sue1 ON last_365_days.SW_Description=sue1.SW_Description)*$criticality)) , ' / 100') AS contents;
 
 select 
     'title'   as component,
