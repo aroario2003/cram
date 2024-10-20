@@ -20,6 +20,22 @@ CREATE TABLE IF NOT EXISTS sue2(
   SW_Description VARCHAR(84) NOT NULL,
   Number_Of_Occurrences INT NOT NULL
   );
+  
+  create table if not exists csv2sql_4758 (
+	id int not null auto_increment primary key, 
+	cveid varchar(64),
+	vendorproject varchar(64),
+	product text,
+	vulnerabilityname text,
+	dateadded varchar(64),
+	shortdescription text,
+	requiredaction text,
+	duedate varchar(64),
+	knownransomwarecampaignuse varchar(64),
+	notes text,
+	cwes varchar(64)
+	
+);
 
  SELECT 'list' AS component, 'You\'re in the SUE2 page' AS title;
  SELECT 'Home' AS title, 'NSWCDD Hackathon Hub' AS description,  '/' AS link;
@@ -98,8 +114,79 @@ DELETE FROM sue2 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 --DELETE FROM sue2 WHERE CVE_Number= $edit;
 
 SELECT 'title' as component,
-CONCAT('Security Score: ', .8*(100-((SELECT IFNULL(SUM(POW(Vulnerability_Score,2)) / COUNT(*), "0") FROM sue2)*$criticality))+(.2*(100-(SELECT IFNULL(SUM(POW(last_365_days.Vulnerability_Score,2))/COUNT(sue2.SW_Description),(select pow(sum(vulnerability_score*number_of_occurrences) / sum(number_of_occurrences),2) from last_365_days)) FROM last_365_days INNER JOIN sue2 ON last_365_days.SW_Description=sue2.SW_Description)*$criticality)) , ' / 100') AS contents;
+CONCAT('Security Score: ', .6*
+(100-(
+SELECT LEAST((
+SELECT GREATEST((
+SELECT IFNULL(SUM(
+POW(
+	(
+	SELECT 
+		LEAST(
+			CASE 
+				WHEN Vulnerability_Score < 2.5 THEN Vulnerability_Score * 0.75
+				WHEN Vulnerability_Score > 7.5 THEN Vulnerability_Score * 1.25
+				ELSE Vulnerability_Score
+			END, 
+		10) AS adjusted_vulnerability_score_limited
+	)
+,2)) 
+/ COUNT(*), "0") FROM sue2)
+*$criticality
+,0))
+,100)
+))
 
++
+(.2*(100-(
+SELECT LEAST((
+SELECT GREATEST((
+SELECT IFNULL(
+SUM(POW
+(
+
+(	SELECT 
+		LEAST(
+			CASE 
+				WHEN last_365_days.Vulnerability_Score < 2.5 THEN last_365_days.Vulnerability_Score * 0.75
+				WHEN last_365_days.Vulnerability_Score > 7.5 THEN last_365_days.Vulnerability_Score * 1.25
+				ELSE last_365_days.Vulnerability_Score
+			END, 
+		10) AS adjusted_vulnerability_score_limited
+	),2)
+)
+/COUNT(sue2.SW_Description)
+,(select pow(
+sum(vulnerability_score
+*number_of_occurrences)
+ / sum(number_of_occurrences),2) from last_365_days))
+ FROM last_365_days 
+ INNER JOIN sue2 ON last_365_days.SW_Description=sue2.SW_Description)*
+ $criticality
+ ,0))
+,100))))
+
+ -(.2*10*(
+ SELECT LEAST((
+SELECT GREATEST((
+SELECT IFNULL((
+ SELECT 
+    MAX(sub.Vulnerability_Score) AS Max_Vulnerability_Score
+FROM 
+    (SELECT 
+        sue2.Vulnerability_Score 
+     FROM 
+        csv2sql_4758 
+     INNER JOIN 
+        sue2 ON sue2.CVE_Number = csv2sql_4758.cveid) sub
+)*$criticality
+ ,0))
+,10))
+, "-10")
+ ))
+
+
+, ' / 100') AS contents;
 select 
     'title'   as component,
     'Click a criticality button to calculate the security score' as contents where $criticality is null;
