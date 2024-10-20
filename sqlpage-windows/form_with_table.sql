@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS sue1(
   Table_Ref VARCHAR(5) NOT NULL
   );
   
- SELECT 'list' AS component, 'bring me home' AS title;
- SELECT 'Home' AS title, 'nswcdd hackathon' AS description,  '/' AS link;
+ SELECT 'list' AS component, 'You\'re in the SUE1 page' AS title;
+ SELECT 'Home' AS title, 'NSWCDD Hackathon Hub' AS description,  '/' AS link;
 
 -- Insert new record only if all fields are provided and no edit is in progress
 INSERT INTO sue1 (CVE_Number, Vulnerability_Score, Node, SW_Make, SW_Description, SW_Version, Table_Ref)
@@ -28,16 +28,12 @@ SW_Version = :SW_Version,
 Table_Ref = :Table_Ref
 WHERE id = $edit AND :CVE_Number IS NOT NULL;
 
-
-
 -- Delete the record
 -- doesn't even work on it's own
 --DELETE FROM sue1 WHERE CVE_Number=$del;
 DELETE FROM sue1 WHERE id=$delete;
 DELETE FROM sue1 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 
-SELECT 'redirect' AS component, 'form_with_table.sql' AS link WHERE $del IS NOT NULL;
-SELECT 'redirect' AS component, 'form_with_table.sql' AS link WHERE $delete IS NOT NULL;
 
 -- Delete the record
 --DELETE FROM sue1 WHERE CVE_Number= $del;
@@ -84,6 +80,16 @@ SELECT 'redirect' AS component, 'form_with_table.sql' AS link WHERE $delete IS N
 --SELECT '?add=1' as link, 'Add New' as title;  -- Dynamic link for add new
 
 --DELETE FROM sue1 WHERE CVE_Number= $edit;
+
+--SELECT 'redirect' AS component, 'redirect_sue1.sql' AS link WHERE $del IS NOT NULL;
+
+--SELECT 'redirect' AS component, 'form_with_table.sql' AS link WHERE $delete IS NOT NULL;
+
+--SELECT 'steps' as component;
+SELECT 'title' as component,
+CONCAT('Security Score: ', (SELECT 100 - (SUM(POW(Vulnerability_Score, 2)) / COUNT(*)) FROM SUE1) , ' / 100') AS contents,
+2 as level;
+
 
 -- Display the table with actions
 SELECT 'table' AS component,

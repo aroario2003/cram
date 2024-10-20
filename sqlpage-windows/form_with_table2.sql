@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS sue2(
   Table_Ref VARCHAR(5) NOT NULL
   );
 
- SELECT 'list' AS component, 'bring me home' AS title;
- SELECT 'Home' AS title, 'nswcdd hackathon' AS description,  '/' AS link;
+ SELECT 'list' AS component, 'You\'re in the SUE2 page' AS title;
+ SELECT 'Home' AS title, 'NSWCDD Hackathon Hub' AS description,  '/' AS link;
 
 -- Insert new record only if all fields are provided and no edit is in progress
 INSERT INTO sue2 (CVE_Number, Vulnerability_Score, Node, SW_Make, SW_Description, SW_Version, Table_Ref)
@@ -36,8 +36,8 @@ WHERE id = $edit AND :CVE_Number IS NOT NULL;
 DELETE FROM sue2 WHERE id=$delete;
 DELETE FROM sue2 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 
-SELECT 'redirect' AS component, 'form_with_table2.sql' AS link WHERE $del IS NOT NULL;
-SELECT 'redirect' AS component, 'form_with_table2.sql' AS link WHERE $delete IS NOT NULL;
+--SELECT 'redirect' AS component, 'form_with_table2.sql' AS link WHERE $del IS NOT NULL;
+--SELECT 'redirect' AS component, 'form_with_table2.sql' AS link WHERE $delete IS NOT NULL;
 
 -- Delete the record
 --DELETE FROM sue2 WHERE CVE_Number= $del;
@@ -84,6 +84,10 @@ SELECT 'redirect' AS component, 'form_with_table2.sql' AS link WHERE $delete IS 
 --SELECT '?add=1' as link, 'Add New' as title;  -- Dynamic link for add new
 
 --DELETE FROM sue2 WHERE CVE_Number= $edit;
+
+SELECT 'title' as component,
+CONCAT('Security Score: ', (SELECT 100 - (SUM(POW(Vulnerability_Score, 2)) / COUNT(*)) FROM SUE2) , ' / 100') AS contents,
+2 as level;
 
 -- Display the table with actions
 SELECT 'table' AS component,
