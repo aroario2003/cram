@@ -15,4 +15,4 @@
 
 
 After the setup:
-It is suggested for you to click "Drop, Create, and Insert Into SUE1 and SUE2 Tables" before navigating to SUE1 and SUE2, but you could also recreate the tables there as well with the "Recreate SUE1 Table" or "Recreate SUE2 Table" button
+It is suggested for you to click "Drop, Create, and Insert Into SUE1 and SUE2 Tables" before navigating to SUE1 and SUE2, but you could also recreate the tables there as well with the "Recreate SUE1 Table" or "Recreate SUE2 Table" buttons
