@@ -8,6 +8,18 @@ CREATE TABLE IF NOT EXISTS sue2(
   SW_Version VARCHAR(23) NOT NULL,
   Table_Ref VARCHAR(5) NOT NULL
   );
+  
+ CREATE TABLE IF NOT EXISTS last_365_days(
+  Vulnerability_Score FLOAT(15),
+  SW_Description VARCHAR(84) NOT NULL,
+  Number_Of_Occurrences INT NOT NULL
+  );
+  
+  CREATE TABLE IF NOT EXISTS last_365_days_sue1(
+  Vulnerability_Score FLOAT(15),
+  SW_Description VARCHAR(84) NOT NULL,
+  Number_Of_Occurrences INT NOT NULL
+  );
 
  SELECT 'list' AS component, 'You\'re in the SUE2 page' AS title;
  SELECT 'Home' AS title, 'NSWCDD Hackathon Hub' AS description,  '/' AS link;
@@ -86,7 +98,7 @@ DELETE FROM sue2 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 --DELETE FROM sue2 WHERE CVE_Number= $edit;
 
 SELECT 'title' as component,
-CONCAT('Security Score: ', .8*(100-((SELECT IFNULL(SUM(POW(Vulnerability_Score,2)) / COUNT(*), "0") FROM SUE2)*$criticality))+(.2*(100-(SELECT SUM(POW(last_365_days.Vulnerability_Score,2))/COUNT(sue2.SW_Description) FROM last_365_days INNER JOIN sue2 ON last_365_days.SW_Description=sue2.SW_Description)*$criticality)) , ' / 100') AS contents;
+CONCAT('Security Score: ', .8*(100-((SELECT IFNULL(SUM(POW(Vulnerability_Score,2)) / COUNT(*), "0") FROM sue2)*$criticality))+(.2*(100-(SELECT IFNULL(SUM(POW(last_365_days.Vulnerability_Score,2))/COUNT(sue2.SW_Description),(select pow(sum(vulnerability_score*number_of_occurrences) / sum(number_of_occurrences),2) from last_365_days)) FROM last_365_days INNER JOIN sue2 ON last_365_days.SW_Description=sue2.SW_Description)*$criticality)) , ' / 100') AS contents;
 
 select 
     'title'   as component,

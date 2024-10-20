@@ -19,8 +19,15 @@ CREATE TABLE IF NOT EXISTS sue2(
   SW_Version VARCHAR(23) NOT NULL,
   Table_Ref VARCHAR(5) NOT NULL
   );
-
-CREATE TABLE IF NOT EXISTS last_365_days(
+  
+ CREATE TABLE IF NOT EXISTS last_365_days(
   Vulnerability_Score FLOAT(15),
-  SW_Description VARCHAR(84) NOT NULL
+  SW_Description VARCHAR(84) NOT NULL,
+  Number_Of_Occurrences INT NOT NULL
+  );
+  
+  CREATE TABLE IF NOT EXISTS last_365_days_sue1(
+  Vulnerability_Score FLOAT(15),
+  SW_Description VARCHAR(84) NOT NULL,
+  Number_Of_Occurrences INT NOT NULL
   );
