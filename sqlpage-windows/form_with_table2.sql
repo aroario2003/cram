@@ -86,15 +86,29 @@ DELETE FROM sue2 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 --DELETE FROM sue2 WHERE CVE_Number= $edit;
 
 SELECT 'title' as component,
-CONCAT('Security Score: ', (SELECT IFNULL(100-(SUM(POW(Vulnerability_Score,2)) / COUNT(*)), "N/A") FROM SUE2) , ' / 100') AS contents,
-2 as level;
+CONCAT('Security Score: ', 100-((SELECT IFNULL(SUM(POW(Vulnerability_Score,2)) / COUNT(*), "0") FROM SUE2)*$criticality) , ' / 100') AS contents;
+
+select 
+    'title'   as component,
+    'Click a criticality button to calculate the security score' as contents where $criticality is null;
 
 SELECT
 	'button' as component;
 SELECT
 	'/insert_into_sue2.sql' as link,
-	CONCAT((SELECT IF((SELECT COUNT(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME='SUE2') = 0, "Create", "Recreate")), ' SUE2 Table') as title;
-
+CONCAT((SELECT IF((SELECT COUNT(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME='SUE2') = 0, "Create", "Recreate")), ' SUE1 Table')  as title;
+SELECT
+	'?criticality=1.25' as link,
+	'danger' as color,
+	'High Criticality' as title;
+SELECT
+	'?criticality=1' as link,
+	'warning' as color,
+	'Medium Criticality' as title;
+SELECT
+	'?criticality=.75' as link,
+	'success' as color,
+	'Low Criticality' as title;
 -- Display the table with actions
 SELECT 'table' AS component,
     'CVE' AS markdown, 'ID2' AS markdown, TRUE AS sort, TRUE AS search;
