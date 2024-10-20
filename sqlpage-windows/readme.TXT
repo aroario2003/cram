@@ -8,5 +8,5 @@ Windows 10 Instructions (likely will work on Windows 11 too):
 7. Go back to the root 'sqlpage-windows' directory
 8. Run 'sqlpage.exe'
 9. Open a web browser
-10. Type in http://localhost:8080
+10. Type in http://localhost:8080 and enter it
 11. You should now see SQLPage setup
