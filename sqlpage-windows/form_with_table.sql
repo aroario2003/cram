@@ -87,9 +87,14 @@ DELETE FROM sue1 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 
 --SELECT 'steps' as component;
 SELECT 'title' as component,
-CONCAT('Security Score: ', (SELECT 100 - (SUM(POW(Vulnerability_Score, 2)) / COUNT(*)) FROM SUE1) , ' / 100') AS contents,
+CONCAT('Security Score: ', (SELECT IFNULL(100-(SUM(POW(Vulnerability_Score,2)) / COUNT(*)), "N/A") FROM SUE1) , ' / 100') AS contents,
 2 as level;
 
+SELECT
+	'button' as component;
+SELECT
+	'/insert_into_sue1.sql' as link,
+CONCAT((SELECT IF((SELECT COUNT(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME='SUE1') = 0, "Create", "Recreate")), ' SUE1 Table')  as title;
 
 -- Display the table with actions
 SELECT 'table' AS component,
