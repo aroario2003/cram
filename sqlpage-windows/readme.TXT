@@ -9,4 +9,7 @@ Windows 10 Instructions (likely will work on Windows 11 too):
 8. Run 'sqlpage.exe'
 9. Open a web browser
 10. Type in http://localhost:8080 and enter it
-11. You should now see SQLPage setup
+11. You should now see SQLPage setup seeing a list
+
+After the setup:
+It is suggested for you to click "Drop, Create, and Insert Into SUE1 and SUE2 Tables" before navigating to SUE1 and SUE2, but you could also recreate the tables there as well with the "Recreate SUE1 Table" or "Recreate SUE2 Table" button
