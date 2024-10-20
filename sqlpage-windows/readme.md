@@ -1,4 +1,4 @@
-## Windows 10 Instructions (likely will work on Windows 11 too):
+## Windows 10 SQLPage Setup Instructions (likely will work on Windows 11 too):
 1. Install SQLPage and MySQL
 2. Create a database and note down that database name and password you set in MySQL
 3. Put the directory 'sqlpage-windows' onto your system downloaded from GitHub
