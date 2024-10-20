@@ -1,14 +1,12 @@
-first you have to install sqlpage. then u can set up tables locally create them and fill with data. then use sqlpage.exe on windows, something else for linux/mac. this has only been tested on windows 10 from my understanding. sqlpage in general is used to display databases
-
-i use make_tables.sql first in mysql to create tables
-then i change import_csv.py filepath and table names. table name is sue1 or sue2 and filepath depends on your system, but are in the csvs folder of this directory
-i run import_csv.py once for each table, so you have to change the filepath and table name twice
-also use localhost:8080 to access website and change sqlpage.json in sqlpage folder to match your database login credentials
-then run sqlpage.exe windows or whatever os u have version.
-after you do that, http://localhost:8080/form_with_table.sql should work showing you SUE1 tables. until delete cve number is complete, SUE2 won't be made, but would not be hard to make (can copy paste to a different sql file)
-
-we were using some links like this to help with coding:
-https://sql.datapage.app/component.sql?component=form
-https://learnsqlpage.com/
-https://github.com/sqlpage/SQLPage/tree/main/examples
-https://github.com/sqlpage/SQLPage/discussions
+Windows 10 Instructions (likely will work on Windows 11 too):
+1. Install SQLPage and MySQL
+2. Create a database and note down that database name and password you set in MySQL
+3. Put the directory 'sqlpage-windows' onto your system downloaded from GitHub
+4. Go to the 'sqlpage-windows' directory, then go into the 'sqlpage' directory, and open the 'sqlpage.json' file
+5. Within the 'sqlpage.json' file, replace 'abcd' with your password and 'alejandro' with your database name you want to use
+6. Save the 'sqlpage.json' file
+7. Go back to the root 'sqlpage-windows' directory
+8. Run 'sqlpage.exe'
+9. Open a web browser
+10. Type in http://localhost:8080
+11. You should now see SQLPage setup
