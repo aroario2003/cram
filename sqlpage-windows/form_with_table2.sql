@@ -96,7 +96,7 @@ SELECT
 	'button' as component;
 SELECT
 	'/insert_into_sue2.sql' as link,
-CONCAT((SELECT IF((SELECT COUNT(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME='SUE2') = 0, "Create", "Recreate")), ' SUE1 Table')  as title;
+CONCAT((SELECT IF((SELECT COUNT(TABLE_NAME) FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME='SUE2') = 0, "Create", "Recreate")), ' SUE2 Table')  as title;
 SELECT
 	'?criticality=1.25' as link,
 	'danger' as color,
