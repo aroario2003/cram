@@ -114,7 +114,7 @@ DELETE FROM sue2 WHERE CVE_Number = $del collate utf8mb4_0900_ai_ci
 --DELETE FROM sue2 WHERE CVE_Number= $edit;
 
 SELECT 'title' as component,
-CONCAT('Security Score: ', .6*
+CONCAT('System Cyber Resiliency Score: ', .6*
 (100-(
 SELECT LEAST((
 SELECT GREATEST((
