@@ -16,7 +16,6 @@ VALUES
 ('CVE-2023-20934', 'Cisco FirePower 4125', 7.8, 3, 0),
 ('CVE-2018-0284', 'Cisco Meraki MS425-32', 6.5, 3, 0),
 ('CVE-2014-7999', 'Cisco Meraki MS425-32', 7.7, 3, 0),
-('CVE-2014-7993', 'Cisco Meraki MS425-32', 3.3, 3, 0),
 ('CVE-2014-7994', 'Cisco Meraki MS425-32', 5.4, 3, 0),
 ('CVE-2014-7995', 'Cisco Meraki MS425-32', 7.2, 3, 0),
 ('CVE-2012-2697', 'RedHat RHEL 5.0', 3.9, 5, 0),
