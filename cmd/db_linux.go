@@ -109,7 +109,7 @@ func GetTotalTimeToFix(result string) (uint16, float32) {
 	} else if totalTimeToFix >= 20 && totalTimeToFix < 30 {
 		multiplier = 0.9
 	} else if totalTimeToFix < 20 {
-		multiplier = 0.85
+		multiplier = 1.85
 	}
 
 	return totalTimeToFix, multiplier
