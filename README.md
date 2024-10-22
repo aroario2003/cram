@@ -41,19 +41,7 @@ We are aware that when starting dbsock you must enter the password for the datab
 
 # Time To Fix Scale
 
-The following is the scale for the total time to fix:
-
-- 0: seconds to fix 
-- 1: 1 minute to fix 
-- 2: 5 minutes to fix 
-- 3: 15 minutes to fix 
-- 4: 30 minutes to fix
-- 5: hour to fix 
-- 6: 2 hours to fix 
-- 7: 4 hours to fix 
-- 8: 8 hours to fix
-- 9: 12 hours to fix
-- 10: full day to fix
+The scale of the time to fix is based on the raw score and is used to calculate for the vulnerability score. The time to fix also includes how long it would take to revamp a system with 5 as a base value and lower or higher based on resuming of operations.
 
 ## Multi-platform building
 
