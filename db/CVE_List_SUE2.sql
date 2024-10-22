@@ -25,7 +25,7 @@ VALUES
 ('CVE-2013-1935', 'RedHat RHEL 6.0', 5.7, 5, 0),
 ('CVE-2013-2224', 'RedHat RHEL 6.0', 6.9, 5, 0),
 ('CVE-2013-2188', 'RedHat RHEL 6.0', 4.7, 5, 0),
-('CVE-2012-0158', 'Microsoft SQL Server 2008 SP2', 8.8, 5, 0)
+('CVE-2012-0158', 'Microsoft SQL Server 2008 SP2', 8.8, 5, 0),
 ('CVE-2015-1762', 'Microsoft SQL Server 2008 SP2', 7.1, 5, 0),
 ('CVE-2015-1763', 'Microsoft SQL Server 2008 SP2', 8.5, 5, 0),
 ('CVE-2012-1856', 'Microsoft SQL Server 2008 SP2', 8.8, 5, 0),
