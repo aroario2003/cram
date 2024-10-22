@@ -46,7 +46,7 @@ VALUES
 ('CVE-2017-3803', 'Cisco Catalyst 2960-X', 4.7, 5, 0),
 ('CVE-2016-1425', 'Cisco Catalyst 2960-X', 6.5, 5, 0),
 ('CVE-2017-8543', 'Microsoft Windows Server 2008 SP2', 9.8, 5, 0),
-('CVE-2014-0301', 'Microsoft Windows Server 2008 SP2', 9.3, 5, 0);
+('CVE-2014-0301', 'Microsoft Windows Server 2008 SP2', 9.3, 5, 0),
 ('CVE-2017-0323', 'Microsoft Windows Server 2008 SP2', 6.6, 5, 0),
 ('CVE-2017-0315', 'Microsoft Windows Server 2008 SP2', 6.9, 5, 0),
 ('CVE-2017-5058', 'Microsoft Windows Server 2008 SP2', 6.9, 5, 0),
@@ -58,7 +58,7 @@ VALUES
 ('CVE-2013-2188', 'RedHat Enterprise Linux', 4.7, 5, 0),
 ('CVE-2023-47804', 'Apache OpenOffice', 8.8, 5, 0),
 ('CVE-2023-37401', 'Apache OpenOffice', 8.8, 5, 0),
-('CVE-2023-33035', 'Apache OpenOffice', 7.8, 5, 0);
+('CVE-2023-33035', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2023-13958', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2023-12607', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2013-1935', 'RedHat Enterprise Linux', 5.7, 5, 0),
@@ -70,7 +70,7 @@ VALUES
 ('CVE-2023-13958', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2023-12607', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2012-2697', 'RedHat Enterprise Linux', 4.9, 5, 0),
-('CVE-2012-3440', 'RedHat Enterprise Linux', 5.6, 5, 0);
+('CVE-2012-3440', 'RedHat Enterprise Linux', 5.6, 5, 0),
 ('CVE-2010-0727', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2023-47804', 'Apache OpenOffice', 8.8, 5, 0),
 ('CVE-2023-13958', 'Apache OpenOffice', 7.8, 5, 0),
@@ -86,7 +86,7 @@ VALUES
 ('CVE-2017-3803', 'Cisco Catalyst 2960-X', 4.7, 5, 0),
 ('CVE-2016-1425', 'Cisco Catalyst 2960-X', 6.5, 5, 0),
 ('CVE-2012-2697', 'RedHat Enterprise Linux', 4.9, 5, 0),
-('CVE-2012-3440', 'RedHat Enterprise Linux', 5.6, 5, 0);
+('CVE-2012-3440', 'RedHat Enterprise Linux', 5.6, 5, 0),
 ('CVE-2010-0727', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2015-7833', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2013-1935', 'RedHat Enterprise Linux', 5.7, 5, 0),
@@ -103,7 +103,7 @@ VALUES
 ('CVE-2023-37401', 'Apache OpenOffice', 8.8, 5, 0),
 ('CVE-2023-33035', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2023-13958', 'Apache OpenOffice', 7.8, 5, 0),
-('CVE-2023-12607', 'Apache OpenOffice', 7.8, 5, 0);
+('CVE-2023-12607', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2012-2697', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2012-3440', 'RedHat Enterprise Linux', 5.6, 5, 0),
 ('CVE-2010-0727', 'RedHat Enterprise Linux', 4.9, 5, 0),
@@ -144,7 +144,7 @@ VALUES
 ('CVE-2015-7833', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2012-2697', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2012-3440', 'RedHat Enterprise Linux', 5.6, 5, 0),
-('CVE-2010-0727', 'RedHat Enterprise Linux', 4.9, 5, 0);
+('CVE-2010-0727', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2010-0727', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2023-47804', 'Apache OpenOffice', 8.8, 5, 0),
 ('CVE-2023-37401', 'Apache OpenOffice', 8.8, 5, 0),
