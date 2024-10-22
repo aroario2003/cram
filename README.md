@@ -41,7 +41,7 @@ We are aware that when starting dbsock you must enter the password for the datab
 
 # Time To Fix Scale
 
-The scale of the time to fix is based on the raw score and is used to calculate for the vulnerability score. The time to fix also includes how long it would take to revamp a system with 5 as a base value and lower or higher based on resuming of operations.
+The scale of the time to fix is based on the raw score and is used to calculate a multiplier for the vulnerability score. The time to fix also includes how long it would take to revamp a system with 5 as a base value and lower or higher based on resuming of operations.
 
 ## Multi-platform building
 
