@@ -50,7 +50,7 @@ VALUES
 ('CVE-2017-0323', 'Microsoft Windows Server 2008 SP2', 6.6, 5, 0),
 ('CVE-2017-0315', 'Microsoft Windows Server 2008 SP2', 6.9, 5, 0),
 ('CVE-2017-5058', 'Microsoft Windows Server 2008 SP2', 6.9, 5, 0),
-('CVE-2012-2697', 'RedHat Enterprise Linux', 4.0 0),
+('CVE-2012-2697', 'RedHat Enterprise Linux', 4.0, 0),
 ('CVE-2012-3440', 'RedHat Enterprise Linux', 4.3, 0),
 ('CVE-2010-0727', 'RedHat Enterprise Linux', 4.2 5, 0),
 ('CVE-2013-1935', 'RedHat Enterprise Linux', 4.8, 0),
