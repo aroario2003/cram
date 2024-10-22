@@ -55,13 +55,16 @@ func GetTotalVulnerabilityScore(result string, rowsCount int) float32 {
 	}
 
 	rawVulnScore := totalVulnScore / float32(rowsCount)
+	if rawVulnScore > 100 {
+		rawVulnScore = 100
+	}
 	vulnScore := 100 - rawVulnScore
 
 	return vulnScore
 }
 
 // gets the total time to fix of all vulnerabilities returned by the query
-func GetTotalTimeToFix(result string) uint16 {
+func GetTotalTimeToFix(result string) (uint16, float32) {
 	var totalTimeToFix uint16
 	var ttfStr string
 	resultsArr := strings.Split(result, "\n")
@@ -91,34 +94,25 @@ func GetTotalTimeToFix(result string) uint16 {
 		totalTimeToFix += uint16(ttf)
 	}
 
-	minutes := (totalTimeToFix % 3600) / 60
-	hours := totalTimeToFix / 3600
 
-	if hours == 0 && minutes == 0 { 
-		totalTimeToFix = 0 
-	} else if hours == 0 && minutes == 1 { 
-		totalTimeToFix = 1 
-	} else if hours == 0 && minutes <= 5 {
-		totalTimeToFix = 2
-	} else if hours == 0 && minutes <= 15 {
-		totalTimeToFix = 3 
-	} else if hours == 0 && minutes <= 30 {
-		totalTimeToFix = 4 
-	} else if hours == 1 && minutes == 0 {
-		totalTimeToFix = 5
-	} else if hours == 2 && minutes == 0 {
-		totalTimeToFix = 6
-	} else if hours <= 4 {
-		totalTimeToFix = 7
-	} else if hours <= 8 {
-		totalTimeToFix = 8
-	} else if hours <= 12 {
-		totalTimeToFix = 9
-	} else if hours <= 24 {
-		totalTimeToFix = 10
+	multiplier := float32(1.0)
+	if totalTimeToFix > 80 { 
+		multiplier = 1.3
+	} else if totalTimeToFix <= 80 && totalTimeToFix > 60 {
+		multiplier = 1.2
+	} else if totalTimeToFix >= 50 && totalTimeToFix < 60 {
+		multiplier = 1.1 
+	} else if totalTimeToFix >= 40 && totalTimeToFix < 50 {
+		multiplier = 1.0
+	} else if totalTimeToFix >= 30 && totalTimeToFix < 40 {
+		multiplier = 0.95
+	} else if totalTimeToFix >= 20 && totalTimeToFix < 30 {
+		multiplier = 0.9
+	} else if totalTimeToFix < 20 {
+		multiplier = 0.85
 	}
 
-	return totalTimeToFix
+	return totalTimeToFix, multiplier
 }
 
 // Takes os or software and returns cve number, vulnerability score and time to fix

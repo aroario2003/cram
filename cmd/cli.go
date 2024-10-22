@@ -17,6 +17,7 @@ var (
 	cveNum string
 	softwares argsArray
 	cveNums argsArray
+	markAsSolved string
 )
 
 // the two functions below are implementations of the interface
@@ -37,6 +38,7 @@ func InitCliArgs() {
 	flag.StringVar(&cveNum, "c", "", "use the cve number query on the cve number specified")
 	flag.Var(&softwares, "S", "multiple os's to query in a list")
 	flag.Var(&cveNums, "C", "multiple cve's to query in a list")
+	flag.StringVar(&markAsSolved, "m", "", "mark a cve as solved")
 	flag.BoolVar(&gui, "gui", false, "start the gui")
 	flag.Parse()
 
@@ -101,6 +103,10 @@ func GetOss() argsArray {
 
 func GetCveNums() argsArray {
 	return cveNums
+}
+
+func GetMarkAsSolved() string {
+	return markAsSolved
 }
 
 // Below are setters for certain variables that are 

@@ -13,7 +13,8 @@ func Entry() {
 		result := QueryDbOS(conn, GetSoftware())
 		numRows := CountRowsReturned(result)
 		totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
-		totalTimeToFix := GetTotalTimeToFix(result)
+		totalTimeToFix, multiplier := GetTotalTimeToFix(result)
+		totalVulnScore = totalVulnScore * multiplier
 		fmt.Printf("%v\n", result)
 		fmt.Printf("%d rows returned\n", numRows)
 		fmt.Printf("%f total vulnerability score\n", totalVulnScore)
@@ -23,7 +24,8 @@ func Entry() {
 		result := QueryDbCve(conn, GetCveNum())
 		numRows := CountRowsReturned(result)
 		totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
-		totalTimeToFix := GetTotalTimeToFix(result)
+		totalTimeToFix, multiplier := GetTotalTimeToFix(result)
+		totalVulnScore = totalVulnScore * multiplier
 		fmt.Printf("%v\n", result)
 		fmt.Printf("%d rows returned\n", numRows)
 		fmt.Printf("%f total vulnerability score\n", totalVulnScore)
@@ -33,7 +35,8 @@ func Entry() {
 		for i, result := range results {
 			numRows := CountRowsReturned(result)
 			totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
-			totalTimeToFix := GetTotalTimeToFix(result)
+			totalTimeToFix, multiplier := GetTotalTimeToFix(result)
+			totalVulnScore = totalVulnScore * multiplier
 			fmt.Printf("===============query %d===============\n", i+1)
 			fmt.Printf("%v\n", result)
 			fmt.Printf("%d rows returned\n", numRows)
@@ -50,7 +53,8 @@ func Entry() {
 		for i, result := range results {
 			numRows := CountRowsReturned(result)
 			totalVulnScore := GetTotalVulnerabilityScore(result, numRows)
-			totalTimeToFix := GetTotalTimeToFix(result)
+			totalTimeToFix, multiplier := GetTotalTimeToFix(result)
+			totalVulnScore = totalVulnScore * multiplier
 			fmt.Printf("===============query %d===============\n", i+1)
 			fmt.Printf("%v\n", result)
 			fmt.Printf("%d rows returned\n", numRows)
@@ -62,5 +66,7 @@ func Entry() {
 				fmt.Printf("======================================")
 			}
 		}
+	} else if GetMarkAsSolved() != "" {
+		MarkAsSolved(GetMarkAsSolved())
 	}
 }

@@ -32,8 +32,9 @@ func Show() {
 		cram.SetSoftware(queryText)
 		result := cram.QueryDbOS(conn, queryText)
 		rowsCount := cram.CountRowsReturned(result)
-		vulnScoreLabel.SetText(fmt.Sprintf("Vulnerability Score: %f", cram.GetTotalVulnerabilityScore(result, rowsCount)))
-		timeToFixLabel.SetText(fmt.Sprintf("Time to Fix: %d", cram.GetTotalTimeToFix(result)))
+		totalTimeToFix, multiplier := cram.GetTotalTimeToFix(result)
+		vulnScoreLabel.SetText(fmt.Sprintf("Vulnerability Score: %f", cram.GetTotalVulnerabilityScore(result, rowsCount) * multiplier))
+		timeToFixLabel.SetText(fmt.Sprintf("Time to Fix: %d", totalTimeToFix))
 		topCVEsLabel.SetText(fmt.Sprintf("Top CVEs: %s", result))
 	})
 
@@ -42,8 +43,9 @@ func Show() {
 		cram.SetCveNum(queryText)
 		result := cram.QueryDbCve(conn, queryText)
 		rowsCount := cram.CountRowsReturned(result)
-		vulnScoreLabel.SetText(fmt.Sprintf("Vulnerability Score: %f", cram.GetTotalVulnerabilityScore(result, rowsCount)))
-		timeToFixLabel.SetText(fmt.Sprintf("Time to Fix: %d", cram.GetTotalTimeToFix(result)))
+		totalTimeToFix, multiplier := cram.GetTotalTimeToFix(result)
+		vulnScoreLabel.SetText(fmt.Sprintf("Vulnerability Score: %f", cram.GetTotalVulnerabilityScore(result, rowsCount) * multiplier))
+		timeToFixLabel.SetText(fmt.Sprintf("Time to Fix: %d", totalTimeToFix))
 		topCVEsLabel.SetText(fmt.Sprintf("Top CVEs: %s", result))
 	})
 
@@ -61,9 +63,9 @@ func Show() {
 			// calculate vulnerability score and time to fix for each os provided
 			rowsCount := cram.CountRowsReturned(result)
 			vulnScore := cram.GetTotalVulnerabilityScore(result, rowsCount)
-			ttfScore := cram.GetTotalTimeToFix(result)
+			ttfScore, multiplier := cram.GetTotalTimeToFix(result)
 
-			vulnScoreStr += fmt.Sprintf("%s: %f\n", osList[i], vulnScore) 
+			vulnScoreStr += fmt.Sprintf("%s: %f\n", osList[i], vulnScore * multiplier) 
 			ttfScoreStr += fmt.Sprintf("%s: %d\n", osList[i], ttfScore)
 			topCveStr += fmt.Sprintf("%s: %s\n", osList[i], result)
 		}
@@ -87,9 +89,9 @@ func Show() {
 			// calculate vulnerability score and time to fix for each cve provided
 			rowsCount := cram.CountRowsReturned(result)
 			vulnScore := cram.GetTotalVulnerabilityScore(result, rowsCount)
-			ttfScore := cram.GetTotalTimeToFix(result)
+			ttfScore, multiplier := cram.GetTotalTimeToFix(result)
 
-			vulnScoreStr += fmt.Sprintf("%s: %f\n", cveList[i], vulnScore) 
+			vulnScoreStr += fmt.Sprintf("%s: %f\n", cveList[i], vulnScore * multiplier) 
 			ttfScoreStr += fmt.Sprintf("%s: %d\n", cveList[i], ttfScore)
 			topCveStr += fmt.Sprintf("%s: %s\n", cveList[i], result)
 		}
