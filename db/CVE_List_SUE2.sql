@@ -70,7 +70,7 @@ VALUES
 ('CVE-2021-20135', 'Tenable Nessus', 6.7, 5, 0),
 ('CVE-2020-5765', 'Tenable Nessus', 5.4, 5, 0),
 ('CVE-2024-23675', 'Splunk SIEM', 6.5, 5, 0),
-('CVE-2024-23676', 'Splunk SIEM', 3.5, 5, 0),
+('CVE-2024-23676', 'Splunk SIEM', 3.5, 5, 1),
 ('CVE-2023-40593', 'Splunk SIEM', 7.5, 5, 0),
 ('CVE-2023-40592', 'Splunk SIEM', 6.1, 5, 0),
 ('CVE-2017-8543', 'Microsoft Windows Server 2008 SP2', 9.8, 5, 0),
