@@ -1,5 +1,5 @@
 CREATE TABLE CVE_List_SUE1 (
-    CVE_Number VARCHAR(50) PRIMARY KEY,
+    CVE_Number VARCHAR(50),
     Software VARCHAR(255),
     Vulnerability_Score DECIMAL(3,1),
     Time_to_Fix INT,
