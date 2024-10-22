@@ -1,4 +1,12 @@
-
+CREATE TABLE CVE_List_SUE1_Patch4 (
+    CVE_Number VARCHAR(50),
+    Software VARCHAR(255),
+    Vulnerability_Score DECIMAL(3,1),
+    Time_to_Fix INT,
+    Solved BOOLEAN
+);
+INSERT INTO CVE_List_SUE1 (CVE_Number, Software, Vulnerability_Score, Time_to_Fix, Solved)
+VALUES
 ('CVE-2013-1935', 'RedHat Enterprise Linux', 5.7, 2, 0),
 ('CVE-2013-2224', 'RedHat Enterprise Linux', 6.9, 2, 0),
 ('CVE-2013-2188', 'RedHat Enterprise Linux', 4.7, 2, 0),
