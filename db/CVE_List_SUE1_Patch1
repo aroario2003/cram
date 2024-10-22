@@ -1,4 +1,4 @@
-CREATE TABLE CVE_List_SUE1 (
+CREATE TABLE CVE_List_SUE1_Patch1 (
     CVE_Number VARCHAR(50),
     Software VARCHAR(255),
     Vulnerability_Score DECIMAL(3,1),
