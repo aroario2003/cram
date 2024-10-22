@@ -5,7 +5,7 @@ CREATE TABLE CVE_List_SUE2_Patch1 (
     Time_to_Fix INT,
     Solved BOOLEAN
 );
-INSERT INTO CVE_List_SUE2_Patch2 (CVE_Number, Software, Vulnerability_Score, Time_to_Fix, Solved)
+INSERT INTO CVE_List_SUE2_Patch1 (CVE_Number, Software, Vulnerability_Score, Time_to_Fix, Solved)
 VALUES
 ('CVE-2023-20269', 'Cisco FirePower 4125', 9.1, 3, 0),
 ('CVE-2023-20256', 'Cisco FirePower 4125', 5.8, 3, 0), 
