@@ -62,7 +62,7 @@ VALUES
 ('CVE-2023-13958', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2023-12607', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2024-23675', 'Splunk SIEM', 3.5, 5, 0),
-('CVE-2024-23676', 'Splunk SIEM', 3.5, 5, 0),
+('CVE-2024-23676', 'Splunk SIEM', 3.5, 5, 1),
 ('CVE-2023-40593', 'Splunk SIEM', 2.5, 5, 0),
 ('CVE-2023-40592', 'Splunk SIEM', 3.1, 5, 0),
 ('CVE-2013-1935', 'RedHat Enterprise Linux', 5.7, 5, 0),
