@@ -1,5 +1,5 @@
 ('CVE-2023-20269', 'Cisco FirePower 4125', 9.1, 5, 0),
-('CVE-2023-20256', 'Cisco FirePower 4125', 5.8, 5, 0),
+('CVE-2023-20256', 'Cisco FirePower 4125', 5.8, 5, 0), 
 ('CVE-2023-20247', 'Cisco FirePower 4125', 4.3, 5, 0),
 ('CVE-2023-20200', 'Cisco FirePower 4125', 6.3, 5, 0),
 ('CVE-2023-20995', 'Cisco FirePower 4125', 8.6, 5, 0),
