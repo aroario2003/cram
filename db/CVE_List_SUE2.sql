@@ -1,3 +1,12 @@
+CREATE TABLE CVE_List_SUE2 (
+    CVE_Number VARCHAR(50),
+    Software VARCHAR(255),
+    Vulnerability_Score DECIMAL(3,1),
+    Time_to_Fix INT,
+    Solved BOOLEAN
+);
+INSERT INTO CVE_List_SUE2 (CVE_Number, Software, Vulnerability_Score, Time_to_Fix, Solved)
+VALUES
 ('CVE-2023-20269', 'Cisco FirePower 4125', 9.1, 5, 0),
 ('CVE-2023-20256', 'Cisco FirePower 4125', 5.8, 5, 0), 
 ('CVE-2023-20247', 'Cisco FirePower 4125', 4.3, 5, 0),
