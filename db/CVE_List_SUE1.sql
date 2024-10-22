@@ -26,7 +26,7 @@ VALUES
 ('CVE-2012-2697', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2012-3440', 'RedHat Enterprise Linux', 5.6, 5, 0),
 ('CVE-2010-0727', 'RedHat Enterprise Linux', 4.9, 5, 0),
-('CVE-2015-7833', 'RedHat Enterprise Linux', 4.9, 5, 0);
+('CVE-2015-7833', 'RedHat Enterprise Linux', 4.9, 5, 0),
 ('CVE-2020-7337', 'McAfee VirusScan Enterprise', 6.7, 5, 0),
 ('CVE-2009-5118', 'McAfee VirusScan Enterprise', 9.3, 5, 0),
 ('CVE-2007-2152', 'McAfee VirusScan Enterprise', 7.9, 5, 0),
