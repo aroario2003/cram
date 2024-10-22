@@ -55,7 +55,8 @@ func GetTotalVulnerabilityScore(result string, rowsCount int) float32 {
 		totalVulnScore += float32(vulnScore) * float32(vulnScore)
 	}
 	
-	rawVulnScore := totalVulnScore / float32(rowsCount)
+	_, multiplier := GetTotalTimeToFix(result)
+	rawVulnScore := (totalVulnScore / float32(rowsCount)) * multiplier
 	if rawVulnScore > 100 {
 		rawVulnScore = 100
 	}
