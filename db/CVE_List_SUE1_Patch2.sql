@@ -82,7 +82,7 @@ VALUES
 ('CVE-2023-37401', 'Apache OpenOffice', 8.8, 5, 0),
 ('CVE-2023-33035', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2023-13958', 'Apache OpenOffice', 7.8, 5, 0),
-('CVE-2023-12607', 'Apache OpenOffice', 7.8, 5, 0)
+('CVE-2023-12607', 'Apache OpenOffice', 7.8, 5, 0),
 ('CVE-2023-47804', 'Apache OpenOffice', 8.8, 5, 0),
 ('CVE-2023-37401', 'Apache OpenOffice', 8.8, 5, 0),
 ('CVE-2023-33035', 'Apache OpenOffice', 7.8, 5, 0),
